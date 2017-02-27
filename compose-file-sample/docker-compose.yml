@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  proxy:
+    image: nginx:1.11 # this will use the latest version of 1.11.x
+    ports:
+      - '80:80' # expose 80 on host and sent to 80 in container
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+  web:
+    image: httpd  # this will use httpd:latest
+    expose:
+      - '80' # on expose port 80 to other containers on it's bridge/overlay network

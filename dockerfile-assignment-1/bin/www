@@ -1,0 +1,126 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('dockerfile-assignment-1:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+//
+// need this in docker container to properly exit since node doesn't handle SIGINT/SIGTERM
+// this also won't work on using npm start since:
+// https://github.com/npm/npm/issues/4603
+// https://github.com/npm/npm/pull/10868
+// https://github.com/RisingStack/kubernetes-graceful-shutdown-example/blob/master/src/index.js
+// if you want to use npm then start with `docker run --init` to help, but I still don't think it's
+// a graceful shutdown of node process
+//
+
+// quit on ctrl-c when running docker in terminal
+process.on('SIGINT', function onSigint () {
+	console.info('Got SIGINT (aka ctrl-c in docker). Graceful shutdown ', new Date().toISOString());
+  shutdown();
+});
+
+// quit properly on docker stop
+process.on('SIGTERM', function onSigterm () {
+  console.info('Got SIGTERM (docker container stop). Graceful shutdown ', new Date().toISOString());
+  shutdown();
+})
+
+// shut down server
+function shutdown() {
+  server.close(function onServerClosed (err) {
+    if (err) {
+      console.error(err);
+      process.exitCode = 1;
+		}
+		process.exit();
+  })
+}
+//
+// need above in docker container to properly exit
+//
