@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  ghost:
+    image: ghost
+    ports:
+      - "80:2368"
+    environment:
+      - URL=http://localhost
+      - NODE_ENV=production
+      - MYSQL_HOST=mysql-primary
+      - MYSQL_PASSWORD=mypass
+      - MYSQL_DATABASE=ghost
+    volumes:
+      - ./config.js:/var/lib/ghost/config.js
+    depends_on:
+      - mysql-primary
+      - mysql-secondary
+  proxysql:
+    image: percona/proxysql
+    environment: 
+      - CLUSTER_NAME=mycluster
+      - CLUSTER_JOIN=mysql-primary,mysql-secondary
+      - MYSQL_ROOT_PASSWORD=mypass
+   
+      - MYSQL_PROXY_USER=proxyuser
+      - MYSQL_PROXY_PASSWORD=s3cret
+  mysql-primary:
+    image: percona/percona-xtradb-cluster:5.7
+    environment: 
+      - CLUSTER_NAME=mycluster
+      - MYSQL_ROOT_PASSWORD=mypass
+      - MYSQL_DATABASE=ghost
+      - MYSQL_PROXY_USER=proxyuser
+      - MYSQL_PROXY_PASSWORD=s3cret
+  mysql-secondary:
+    image: percona/percona-xtradb-cluster:5.7
+    environment: 
+      - CLUSTER_NAME=mycluster
+      - MYSQL_ROOT_PASSWORD=mypass
+   
+      - CLUSTER_JOIN=mysql-primary
+      - MYSQL_PROXY_USER=proxyuser
+      - MYSQL_PROXY_PASSWORD=s3cret
+    depends_on:
+      - mysql-primary

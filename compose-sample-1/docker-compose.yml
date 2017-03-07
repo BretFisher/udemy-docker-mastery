@@ -1,0 +1,14 @@
+version: '2'
+
+# same as 
+# docker run -p 80:4000 -v $(pwd):/site bretfisher/jekyll-serve
+
+services:
+  jekyll:
+    image: bretfisher/jekyll-serve
+    volumes:
+      - .:/site
+    ports:
+      - '80:4000'
+
+
