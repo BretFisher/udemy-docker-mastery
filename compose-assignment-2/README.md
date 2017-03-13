@@ -1,10 +1,8 @@
 # Assignment: Compose For On-The-Fly Image Building and Multi-Container Testing
 
-Goal: You aren't doing development yet, you just want to test Drupal locally with a custom theme installed.
+Goal: This time imagine you're just wanting to learn Drupal's admin and GUI, or maybe you're a software tester and you need to test a new theme for Drupal. When configured properly, this will let you build a custom image and start everything with `docker compose up` including storing important db and config data in volumes so the site will remember your changes across Compose restarts.
 
 - Use the compose file you created in the last assignment (drupal and postgres) as a starting point.
-- You won't need any volumes for the drupal service, as we'll be building a custom image with theme inside it.
-- You WILL need a volume for postgres to keep your data across Compose restarts (see below).
 
 ## Dockerfile
 - First you need to build a custom Dockerfile in this directory, `FROM drupal:8.2`
@@ -16,12 +14,14 @@ Goal: You aren't doing development yet, you just want to test Drupal locally wit
 - Then just to be save, change the working directory back to it's default (from drupal image) at `/var/www/html`
 
 ## Compose File
-- We're going to build a custom image in this compose file for drupal service.
-- Rename image to `custom-drupal` as we want to make our own image from the official `drupal`.
-- We want to build the default Dockerfile by adding `build: .` to `drupal` service. When we add a build + image value to a compose service, it knows to use the image name to write to in our image cache, rather then pull from Docker Hub.
-- for `postgres` service, you need the same password as in previous assignment, but also add a volume for `drupal-data:/var/lib/postgresql/data` to your drupal configuration will persist across Compose restarts.
+- We're going to build a custom image in this compose file for drupal service. Use Compose file from previous assignment for Drupal to start with, and we'll add to it, as well as change image name.
+- Rename image to `custom-drupal` as we want to make a new image based on the official `drupal`.
+- We want to build the default Dockerfile in this directory by adding `build: .` to the `drupal` service. When we add a build + image value to a compose service, it knows to use the image name to write to in our image cache, rather then pull from Docker Hub.
+- For the `postgres` service, you need the same password as in previous assignment, but also add a volume for `drupal-data:/var/lib/postgresql/data` so the database will persist across Compose restarts.
 
 ## Start Containers, Configure Drupal
 - Start containers like before, configure Drupal web install like before.
-- After website comes up, click on `Appearance` in top bar, and notice a new theme called `Bootstrap` is there.
-- Click Install and set as default. Then click "Back to site" (in top left) and the webiste interface should look different. You've successfully installed and activated a new theme in your own custom image without installing anything on your host other then Docker!
+- After website comes up, click on `Appearance` in top bar, and notice a new theme called `Bootstrap` is there. That's the one we added with our custom Dockerfile.
+- Click `Install and set as default`. Then click `Back to site` (in top left) and the webiste interface should look different. You've successfully installed and activated a new theme in your own custom image without installing anything on your host other then Docker!
+- If you exit (ctrl-c) and then `docker-compose` down it will delete containers, but not the volumes, so on next `docker-compose up` everything will be as it was.
+- To totally clean up volumes, add `-v` to `down` command.
