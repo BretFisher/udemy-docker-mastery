@@ -1,13 +1,6 @@
-# Assignment: Writing a Compose File
+# Assignment: Compose For On-The-Fly Image Building and Multi-Container Development
 
-> Goal: Create a compose config for a local Drupal CMS website
+- Use the compose file you created in the last assignment (drupal and postgres)
+- Add Build commands to compose for the drupal container
+- Use the Dockerfile I've given you in this Directory that will create a custom drupal conntainer in local image cache, FROM the official drupal image.
 
-- This empty directory is where you should create a docker-compose.yml 
-- Use the `drupal` image along with the `postgres` image
-- Set the version to 2
-- Use `ports` to expose Drupal on 8080
-- Be sure to setup POSTGRES_PASSWORD on postgres image
-- Walk though Drupal config in browser at http://localhost:8080
-- Tip: Drupal assumes DB is localhost, but it will actually be on the compose service name you give it
-- Use Docker Hub documentation to figure out the right environment and volume settings
-- Extra Credit: Use volumes to store Drupal unique data
