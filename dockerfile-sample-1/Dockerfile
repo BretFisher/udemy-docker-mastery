@@ -5,7 +5,7 @@ FROM debian:jessie
 # usually from a minimal Linux distribution like debain or (even better) alpine
 # if you truly want to start with an empty container, use FROM scratch
 
-ENV NGINX_VERSION 1.11.13-1~jessie
+ENV NGINX_VERSION 1.13.0-1~jessie
 # optional environment variable that's used in later lines and set as envvar when container is running
 
 RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 \
