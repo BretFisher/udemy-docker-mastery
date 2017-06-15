@@ -22,7 +22,7 @@
 # - then it should create directory /usr/src/app for app files with 'mkdir -p /usr/src/app'
 # - Node uses a "package manager", so it needs to copy in package.json file
 # - then it needs to run 'npm install' to install dependencies from that file
-# - to keep it clean and small, run 'npm cache clean' after above
+# - to keep it clean and small, run 'npm cache clean --force' after above
 # - then it needs to copy in all files from current directory
 # - then it needs to start container with command 'tini -- node ./bin/www'
 # - in the end you should be using FROM, RUN, WORKDIR, COPY, EXPOSE, and CMD commands
