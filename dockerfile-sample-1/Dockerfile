@@ -1,12 +1,15 @@
 # NOTE: this example is taken from the default Dockerfile for the official nginx Docker Hub Repo
 # https://hub.docker.com/_/nginx/
+# NOTE: This file is slightly different then the video, because nginx versions have been updated 
+#       to match the latest standards from docker hub... but it's doing the same thing as the video
+#       describes
 FROM debian:stretch-slim
 # all images must have a FROM
 # usually from a minimal Linux distribution like debain or (even better) alpine
 # if you truly want to start with an empty container, use FROM scratch
 
-ENV NGINX_VERSION 1.13.0-1~stretch
-ENV NJS_VERSION   1.13.0.0.1.10-1~stretch
+ENV NGINX_VERSION 1.13.1-1~stretch
+ENV NJS_VERSION   1.13.1.0.1.10-1~stretch
 # optional environment variable that's used in later lines and set as envvar when container is running
 
 RUN apt-get update \
@@ -42,7 +45,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 # forward request and error logs to docker log collector
 
-EXPOSE 80 443 8080
+EXPOSE 80 443
 # expose these ports on the docker virtual network
 # you still need to use -p or -P to open/forward these ports on host
 
