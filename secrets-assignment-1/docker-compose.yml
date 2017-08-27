@@ -1,7 +1,7 @@
 ## This file is a solution to the "secrets" assignment in Bret Fisher's Docker course on Udemy
 ## The problem statement demands you to setup a stack for Drupal (backed by postgres) where postgres password is provided as a secret
 ## to run this
-## echo "password" | docker stack deploy -c docker-compose-secrets.yml drupalapp
+## echo "password" | docker secret create pgpasswd - && docker stack deploy -c docker-compose-secrets.yml drupalapp
 
 version: "3.1"
 services:
