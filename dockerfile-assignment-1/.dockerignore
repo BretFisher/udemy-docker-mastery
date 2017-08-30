@@ -1,0 +1,11 @@
+# add git-ignore syntax here of things you don't want copied into docker image
+
+# for all code you usually don't want .git history in image, just the current commit you have checked out
+.git
+
+# you usually don't want dockerfile and compose files in the image either
+*Dockerfile*
+*docker-compose*
+
+# for Node.js apps, you want to build the node_modules in the image, and not copy from host
+node_modules
