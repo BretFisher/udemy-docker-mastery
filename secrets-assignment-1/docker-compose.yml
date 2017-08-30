@@ -1,28 +1,50 @@
-version: '2'
+## This file is a solution to the "secrets" assignment in Bret Fisher's Docker course on Udemy
+## The problem statement demands you to setup a stack for Drupal (backed by postgres) where postgres password is provided as a secret
+## to run this
+## echo "password" | docker secret create pgpasswd - && docker stack deploy -c docker-compose-secrets.yml drupalapp
 
+version: "3.1"
 services:
 
-  drupal:
-    image: custom-drupal
-    build: .
-    ports:
-      - "8080:80"
-    volumes:
-      - drupal-modules:/var/www/html/modules
-      - drupal-profiles:/var/www/html/profiles       
-      - drupal-sites:/var/www/html/sites      
-      - drupal-themes:/var/www/html/themes
- 
-  postgres:
-    image: postgres:9.6
-    environment:
-      - POSTGRES_PASSWORD=mypasswd
-    volumes:
-      - drupal-data:/var/lib/postgresql/data
+   drupal:
+     image: drupal
+     networks:
+       backend:
+         aliases:
+           - drupal
+       frontend:
+         aliases:
+           - drupal
+     ports:
+       - "8080:80"
+     depends_on:
+       - postgres
+     deploy:
+       replicas: 1
 
+
+
+   postgres:
+     image: postgres:9.6
+     networks:
+       backend:
+         aliases:
+           - postgres_db
+     volumes:
+         - pgdata_vol:/var/lib/pgsql/data
+     secrets:
+         - pgpasswd
+     environment:
+         - POSTGRES_PASSWORD_FILE=/run/secrets/pgpasswd
+
+secrets:
+   pgpasswd:
+     external: true
 volumes:
-  drupal-data:
-  drupal-modules:
-  drupal-profiles:
-  drupal-sites:
-  drupal-themes:
+   pgdata_vol:
+
+networks:
+   backend:
+     driver: overlay
+   frontend:
+     driver: overlay
