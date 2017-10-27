@@ -8,8 +8,8 @@ FROM debian:stretch-slim
 # usually from a minimal Linux distribution like debain or (even better) alpine
 # if you truly want to start with an empty container, use FROM scratch
 
-ENV NGINX_VERSION 1.13.1-1~stretch
-ENV NJS_VERSION   1.13.1.0.1.10-1~stretch
+ENV NGINX_VERSION 1.13.6-1~stretch
+ENV NJS_VERSION   1.13.6.0.1.14-1~stretch
 # optional environment variable that's used in later lines and set as envvar when container is running
 
 RUN apt-get update \
