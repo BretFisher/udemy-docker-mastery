@@ -4,7 +4,7 @@
 
 - See architecture.png in this directory for a basic diagram of how the 5 services will work
 - All images are on Docker Hub, so you should use editor to craft your commands locally, then paste them into swarm shell (at least that's how I'd do it)
-- a `backend` and `frontend` overlay network are needed. Nothing different about them other then that backend will help protect datatbase from the voting web app. (similar to how a VLAN setup might be in traditional archecture)
+- a `backend` and `frontend` overlay network are needed. Nothing different about them other then that backend will help protect datatbase from the voting web app. (similar to how a VLAN setup might be in traditional architecture)
 - The database server should use a named volume for perserving data. Use the new `--mount` format to do this: `--mount type=volume,source=db-data,target=/var/lib/postgresql/data`
 
 ### Services (names below should be service names)
