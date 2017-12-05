@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+    viz:
+        image: bretfisher/visualizer
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        ports:
+            - "8080:8080"
+        deploy:
+            placement:
+                constraints:
+                    - node.role == manager
