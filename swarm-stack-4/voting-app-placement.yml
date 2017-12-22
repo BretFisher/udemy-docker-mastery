@@ -7,30 +7,21 @@
 version: '3'
 services:
     redis:
-        image: 'redis:alpine'
+        image: redis:alpine
         networks:
             - frontend
     db:
-        image: 'postgres:9.6'
+        image: postgres:9.6
         volumes:
-            - 'db-data:/var/lib/postgresql/data'
+            - db-data:/var/lib/postgresql/data
         networks:
             - backend
-        deploy:
-            placement:
-                constraints:
-                    - node.labels.ssd == true
     vote:
         image: bretfisher/examplevotingapp_vote
         ports:
             - '5000:80'
         networks:
             - frontend
-        deploy:
-            replicas: 2
-            placement:
-                constraints:
-                    - node.role == worker
     result:
         image: bretfisher/examplevotingapp_result
         ports:
@@ -38,15 +29,10 @@ services:
         networks:
             - backend
     worker:
-        image: 'bretfisher/examplevotingapp_worker:java'
+        image: bretfisher/examplevotingapp_worker:java
         networks:
             - frontend
             - backend
-        deploy:
-            mode: global
-            placement:
-                constraints:
-                    - node.role != manager
 networks:
     frontend: null
     backend: null
