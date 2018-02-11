@@ -5,7 +5,7 @@
 #       describes
 FROM debian:stretch-slim
 # all images must have a FROM
-# usually from a minimal Linux distribution like debain or (even better) alpine
+# usually from a minimal Linux distribution like debian or (even better) alpine
 # if you truly want to start with an empty container, use FROM scratch
 
 ENV NGINX_VERSION 1.13.6-1~stretch
