@@ -1,13 +1,14 @@
+# If taking Docker Mastery, this is the same file you created in 
+# ./compose-assignment-2
+# If taking Swarm Mastery, this is your starting point for adding secrets :)
+# reminder, this needs to change to 3.1 version to use secrets!
 version: '2'
 
 services:
 
   drupal:
     image: custom-drupal
-    build: 
-      # NOTE: these 2 line is only for bret
-      context: .
-      dockerfile: answer.Dockerfile
+    build: .
     ports:
       - "8080:80"
     volumes:

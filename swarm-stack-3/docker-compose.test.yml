@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   drupal:
-    image: bretfisher/custom-drupal
+    image: custom-drupal
     build: .
     ports:
       - "80:80"

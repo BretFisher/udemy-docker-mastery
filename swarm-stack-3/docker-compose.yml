@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   drupal:
-    image: bretfisher/custom-drupal:latest
+    image: custom-drupal:latest
 
   postgres:
     image: postgres:9.6

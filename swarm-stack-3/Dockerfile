@@ -1,12 +1,17 @@
-FROM drupal:8.2
+FROM drupal:8.5
 
 
 RUN apt-get update && apt-get install -y git \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /var/www/html/themes
+# this next part was corrected in 2018 to be more clear on how you'd typically 
+# customize your own theme. first you need to clone the theme into this repo
+# with something like downloading the lastest theme for bootstrap
+# https://www.drupal.org/project/bootstrap and extract into themes dir on host.
+# then you'll COPY it into image here:
 
-RUN git clone --branch 8.x-3.x --single-branch --depth 1 https://git.drupal.org/project/bootstrap.git \
-    && chown -R www-data:www-data bootstrap
+WORKDIR /var/www/html/core
+
+COPY ./themes ./themes
 
 WORKDIR /var/www/html
