@@ -28,7 +28,7 @@
 # - in the end you should be using FROM, RUN, WORKDIR, COPY, EXPOSE, and CMD commands
 
 # Bonus Extra Credit
-# this will not have you setting up a complete image useful for local develement, test, and prod
+# this will not have you setting up a complete image useful for local development, test, and prod
 # it's just meant to get you started with basic Dockerfile concepts and not focus too much on
 # proper Node.js use in a container. **If you happen to be a Node.js Developer**, then 
 # after you get through more of this course, you should come back and use my 
