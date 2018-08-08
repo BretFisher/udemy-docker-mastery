@@ -10,6 +10,7 @@ Gemfile.lock
 mysql-data
 wordpress-data
 registry-data
+sample-data
 
 ##
 ##
