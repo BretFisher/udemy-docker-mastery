@@ -1,60 +1,24 @@
 version: '3.4'
 services:
     redis:
-        image: redis
-        healthcheck:
-            test: ["CMD", "redis-healthcheck"]
-            interval: 5s
-            timeout: 5s
-            retries: 3
-            start_period: 60s
-        deploy:
-            replicas: 1
-            update_config:
-              failure_action: rollback
-        configs:
-            - source: redis-healthcheck
-              target: /usr/local/bin/redis-healthcheck
-              mode: 0555
+        image: redis:alpine
         networks:
             - frontend
     db:
         image: postgres:9.6
-        healthcheck:
-            test: ["CMD", "postgres-healthcheck"]
-            interval: 5s
-            timeout: 5s
-            retries: 3
-            start_period: 60s
-        deploy:
-            replicas: 1
-            update_config:
-              failure_action: rollback
-        configs:
-            - source: postgres-healthcheck
-              target: /usr/local/bin/postgres-healthcheck
-              mode: 0555
         volumes:
             - db-data:/var/lib/postgresql/data
         networks:
             - backend
+        deploy:
     vote:
         image: bretfisher/examplevotingapp_vote
         ports:
             - '5000:80'
-        healthcheck: 
-            test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
-            interval: 5s
-            timeout: 5s
-            retries: 3
-            start_period: 20s
-        deploy:
-            replicas: 2
-            update_config:
-                failure_action: rollback
-                order: start-first
         networks:
             - frontend
+        deploy:
+            mode: global
     result:
         image: bretfisher/examplevotingapp_result
         ports:
@@ -67,17 +31,10 @@ services:
             - frontend
             - backend
         deploy:
-          replicas: 2
-
+            mode: global
 networks:
     frontend:
     backend:
 volumes:
     db-data:
-
-configs:
-  redis-healthcheck:
-    file: ./redis-healthcheck
-  postgres-healthcheck:
-    file: ./postgres-healthcheck
 
