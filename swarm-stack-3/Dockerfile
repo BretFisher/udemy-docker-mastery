@@ -1,4 +1,4 @@
-FROM drupal:8.5
+FROM drupal:8.6
 
 
 RUN apt-get update && apt-get install -y git \
