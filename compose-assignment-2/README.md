@@ -16,7 +16,7 @@ Goal: This time imagine you're just wanting to learn Drupal's admin and GUI, or 
 
 ## Compose File
 - We're going to build a custom image in this compose file for drupal service. Use Compose file from previous assignment for Drupal to start with, and we'll add to it, as well as change image name.
-- Rename image to `custom-drupal` as we want to make a new image based on the official `drupal:8.2`.
+- Rename image to `custom-drupal` as we want to make a new image based on the official `drupal:8.6`.
 - We want to build the default Dockerfile in this directory by adding `build: .` to the `drupal` service. When we add a build + image value to a compose service, it knows to use the image name to write to in our image cache, rather then pull from Docker Hub.
 - For the `postgres:9.6` service, you need the same password as in previous assignment, but also add a volume for `drupal-data:/var/lib/postgresql/data` so the database will persist across Compose restarts.
 
