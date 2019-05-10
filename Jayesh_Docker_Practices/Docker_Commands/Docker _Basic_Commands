@@ -1,0 +1,27 @@
+#List of Docker Commands
+
+
+
+    docker –version
+    docker pull
+    docker run
+    docker ps
+    docker ps -a
+    docker exec
+    docker stop
+    docker kill
+    docker commit
+    docker login
+    docker push
+    docker images
+    docker rm
+    docker rmi
+    docker build
+
+
+    Link --https://www.edureka.co/blog/docker-commands/
+
+
+
+
+
