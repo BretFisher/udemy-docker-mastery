@@ -8,7 +8,7 @@ Get these courses for just $10 using my "cheapest on the Internet" coupon link:
 
 https://bretfisher.com/dockermastery
 
-https://bretfisher.com/swarmmastery
+https://bretfisher.com/dockerswarmmastery
 
 Other courses, coupons, and free DevOps and Docker resources at https://www.bretfisher.com/docker
 
