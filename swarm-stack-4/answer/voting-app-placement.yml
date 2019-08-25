@@ -1,0 +1,56 @@
+# NOTE: move this answer file up a directory for it to work
+
+# Assignment Requirements
+# db must only run on a node with ssd=true label
+# vote should be HA with 2 replicas
+# vote must not run on Swarm manager nodes
+# worker needs to scale with Swarm worker nodes, 1 task each
+
+version: '3'
+services:
+    redis:
+        image: redis:alpine
+        networks:
+            - frontend
+    db:
+        image: postgres:9.6
+        volumes:
+            - 'db-data:/var/lib/postgresql/data'
+        networks:
+            - backend
+        deploy:
+            placement:
+                constraints:
+                    - node.labels.ssd == true
+    vote:
+        image: bretfisher/examplevotingapp_vote
+        ports:
+            - '5000:80'
+        networks:
+            - frontend
+        deploy:
+            replicas: 2
+            placement:
+                constraints:
+                    - node.role == worker
+    result:
+        image: bretfisher/examplevotingapp_result
+        ports:
+            - '5001:80'
+        networks:
+            - backend
+    worker:
+        image: bretfisher/examplevotingapp_worker:java
+        networks:
+            - frontend
+            - backend
+        deploy:
+            mode: global
+            placement:
+                constraints:
+                    - node.role == worker
+networks:
+    frontend: null
+    backend: null
+volumes:
+    db-data: null
