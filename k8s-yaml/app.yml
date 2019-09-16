@@ -5,7 +5,7 @@ metadata:
   labels:
     app: app-nginx
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - port: 80
   selector:
