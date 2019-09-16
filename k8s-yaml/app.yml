@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
-  labels:
-    app: app-nginx
+  name: app-nginx-service
 spec:
   type: NodePort
   ports:
@@ -15,8 +13,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-nginx-deployment
-  labels:
-    app: app-nginx
 spec:
   replicas: 3
   selector:
