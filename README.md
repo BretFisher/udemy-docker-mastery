@@ -4,12 +4,10 @@
 
 This repo is for use in my Udemy Courses "Docker Mastery" and "Swarm Mastery"
 
-Get these courses for just $10 using my "cheapest on the Internet" coupon link:
+Get these courses for with my "cheapest on the Internet" coupon links:
 
-https://bretfisher.com/dockermastery
+https://www.bretfisher.com/courses
 
-https://bretfisher.com/dockerswarmmastery
-
-Other courses, coupons, and free DevOps and Docker resources at https://www.bretfisher.com/docker
+My other DevOps and Docker resources are at https://www.bretfisher.com/docker
 
 Feel free to create issues or PRs if you find a problem with examples in this repo!
