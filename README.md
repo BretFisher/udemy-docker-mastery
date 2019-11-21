@@ -1,6 +1,6 @@
-# Docker Mastery: The Complete Toolset From a Docker Captain
+# Docker Mastery: Docker Mastery: with Kubernetes+Swarm from a Docker Captain
 
-> Build, compose, deploy, and manage Docker containers from development to DevOps based Swarm clusters
+> Build, test, deploy containers with the best mega-course on Docker, Kubernetes, Compose, Swarm and Registry using DevOps
 
 This repo is for use in my Udemy Courses "Docker Mastery" and "Swarm Mastery"
 
