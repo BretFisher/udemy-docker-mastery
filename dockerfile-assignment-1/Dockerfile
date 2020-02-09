@@ -47,7 +47,7 @@ COPY package.json .
 RUN npm install \
     && npm cache clean --force
 
-COPY *.* ./
+COPY . / 
 
 EXPOSE 80
 
