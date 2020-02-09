@@ -47,8 +47,9 @@ COPY package.json .
 RUN npm install \
     && npm cache clean --force
 
-COPY . / 
+COPY . .
 
-EXPOSE 80
+# expose the port for node.js within the container virtaul network, still need to -p publish at runtime host port:container 80:3000
+EXPOSE 3000
 
-CMD ["/sbin/tini -- node ./bin/www"]
+CMD ["/sbin/tini", "--", "node", "./bin/www"]
