@@ -6,4 +6,4 @@ services:
     image: custom-drupal:latest
 
   postgres:
-    image: postgres:9.6
+    image: postgres:12.1

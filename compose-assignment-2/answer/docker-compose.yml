@@ -4,8 +4,8 @@ version: '2'
 services:
 
   drupal:
-    container_name: drupal
     image: custom-drupal
+    build: .
     ports:
       - "8080:80"
     volumes:
@@ -15,8 +15,7 @@ services:
       - drupal-themes:/var/www/html/themes
  
   postgres:
-    container_name: postgres
-    image: postgres:9.6
+    image: postgres:12.1
     environment:
       - POSTGRES_PASSWORD=mypasswd
     volumes:
