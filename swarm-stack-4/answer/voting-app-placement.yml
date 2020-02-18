@@ -18,6 +18,8 @@ services:
             - 'db-data:/var/lib/postgresql/data'
         networks:
             - backend
+        environment:
+            - POSTGRES_HOST_AUTH_METHOD=trust
         deploy:
             placement:
                 constraints:

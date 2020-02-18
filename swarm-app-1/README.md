@@ -35,6 +35,7 @@ Here is a basic diagram of how the 5 services will work:
     - one named volume needed, pointing to /var/lib/postgresql/data
     - on backend network
     - 1 replica
+    - remember set env for password-less connections -e POSTGRES_HOST_AUTH_METHOD=trust
 
 - result
     - bretfisher/examplevotingapp_result

@@ -6,6 +6,8 @@ services:
             - frontend
     db:
         image: postgres:9.6
+        environment:
+            - POSTGRES_HOST_AUTH_METHOD=trust
         volumes:
             - db-data:/var/lib/postgresql/data
         networks:
