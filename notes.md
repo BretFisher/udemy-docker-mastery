@@ -60,5 +60,26 @@ This is good for changing settings inside a running container.
 Alpine is another distribution of linux, only 5mb in size. It also comes with its own package manager. Bash is not in the Alpine container. To get in the Alpine image, you can use sh and then once you are in the container you can install bash. 
 
 
+### Docker Networks: Concepts 
 
+- `docker container run -p` -p option exposes the port on your machine. 
+
+- Docker has a concept of batteries included but removable, the defaults are pretty easy and common to work with but you can change a lot of the options under the hood. 
+
+- The contianer port command lists which ports are open on your network for that container 
+
+
+When you start a container you are really in the background connecting to a particular docker network and by default that is the bridge network. Each one of those networks actually routes out through a NAT firewall , which is the docker Deamon configuring the host IP address on its default interface so that the docker containers can get out to the internet or to the rest of your network and get back. We don't have to use the -p when we have specific containers wanting to talk to each other inside our host. 
+For example, an application that has a sql server and php those should be able to talk to each other without using the -p.
+
+- You can make new virutal networks 
+- Attach containers to more than one virtual netowrk (or none)
+- Skip virtual networks and use host IP (--net=host)
+- User different Docker network drivers to gain new abilities
+
+By default, the IP address of the container is not the same as the IP address of the host. 
+
+`docker container inspect --format '{{ .NetworkSettings.IPAddress }}' webhost`
+
+Why does this happen?
 
