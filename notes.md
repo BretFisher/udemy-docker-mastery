@@ -158,8 +158,49 @@ YUM (Yellowdog Updater Modified) is an open source command-line as well as graph
 
 
 - Ensure curl is installed and on latest version for that distro 
-  - apt-get update && apt-get install curl 
-  - centos: yum update curl 
+  - `apt-get update && apt-get install curl` - for Ubuntu
+  - centos: `yum update curl` 
 - Check curl --version
+` curl - v`
+nslookup search. 
+
+### Assigment: DNS RR Test 
 
 nslookup search. 
+
+- Know how to use -it to get shell in container 
+- Understand basics of what a Linux distribution is like Ubuntu and CentOS
+- Know how to run a containe r
+- Understand basics of DNS records 
+
+Task: 
+DNS Round Robin is the concept that you can have 2 different hosts with DNS aliases and they respond to the same DNS name. 
+
+- Ever since Docker Engine 1.11, we can have multiple containers on a created network respond to the same DNS address
+- Create a new virtual network (default bridge driver)
+`docker container run -d --net new_network --net-alias search elasticsearch:2`
+- Create two containers from elasticsearsh:2 image 
+elastic search is in a json format when you hit it from curl. 
+- Research and use -network-alias search when creating them to give them an additional DNS name to respond to 
+`docker container run --rm --net new_network alpine nslookup search.`
+- Run alpine nslookup search. with --net to see the two containers list for the same DNS name. 
+- Run centos curl -s search:9200 with --net multiple times until you see both name fields show
+`docker container run --rm --net new_network centos curl -s search:9200`
+
+
+### What is a load balancer?
+Load balancing refers to efficiently distributing incoming network traffic across a group of backend servers, also known as a server farm or server pool.
+
+Modern high‑traffic websites must serve hundreds of thousands, if not millions, of concurrent requests from users or clients and return the correct text, images, video, or application data, all in a fast and reliable manner. To cost‑effectively scale to meet these high volumes, modern computing best practice generally requires adding more servers.
+
+A load balancer acts as the “traffic cop” sitting in front of your servers and routing client requests across all servers capable of fulfilling those requests in a manner that maximizes speed and capacity utilization and ensures that no one server is overworked, which could degrade performance. If a single server goes down, the load balancer redirects traffic to the remaining online servers. When a new server is added to the server group, the load balancer automatically starts to send requests to it.
+
+In this manner, a load balancer performs the following functions:
+
+Distributes client requests or network load efficiently across multiple servers
+Ensures high availability and reliability by sending requests only to servers that are online
+Provides the flexibility to add or subtract servers as demand dictates
+
+
+### What's an image?
+
