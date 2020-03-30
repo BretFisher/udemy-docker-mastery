@@ -41,7 +41,9 @@ In the background it's going to look for the image that we specified in the end 
 docker container exec -it : run additional command in existing container 
 
 - -it is 2 separate options. The 't' gives you a sudo TTY. The 'i' allows us to keep that session open to keep running more commands. 
-``docker container run -it --name proxy nginx bash``
+`docker container run -it --name proxy nginx bash`
+
+In essence, tty is short for teletype, but it's more popularly known as terminal. It's basically a device (implemented in software nowadays) that allows you to interact with the system by passing on the data (you input) to the system, and displaying the output produced by the system.
 
 Ubuntu image: Its default CMD is bash, so there is no need to specify it 
 
@@ -83,3 +85,81 @@ By default, the IP address of the container is not the same as the IP address of
 
 Why does this happen?
 
+### Docker Networks: CLI Management 
+
+- Show network: docker network ls 
+- Inspect a network: docker network inspect 
+- Create a network: docker network create --driver
+- Attach a network to container: docker network connect 
+- Detach a network from container: docker network disconnect 
+
+- Docker0 or bridge is the default docker virtual network, which is NAT'ed behind the HostIP 
+
+- The host network is a special network that skips the the virtual network of docker but sacrifices security of container model 
+
+- The --network none removes eth0 and only leaves you with localhost interface in container
+
+- When you create a virtual network it will create it automatically with the driver 'bridge'. The 'bridge' network driver is a built-in or 3rd party extension that gives you virtual network features. It doens't have any of the advanced features. 
+
+- You can add options to the 'docker network create' 
+
+- You can use the --network option when you create a container `docker container run -d --name new_nginx --network my_app_net nginx`
+
+- to connect and disconnect networks to containers and viceversa we use the `docker network connect` and `docker network disconnect` 
+
+### Docker Networks: Default Security 
+
+If you're runnin all of the applications on a single server, you are able to really protect them. In the physical work with vitual machine and hosts, we would overexpose the ports and networking on our application. If all the app containers were on one container, you would only be exposing the port that you use the -p with and everthing else would me a bit more protected. 
+
+- Create your apps so frontend/backend sit on same Docker network 
+- Their inter-communication never leaves host 
+- All externally exposed ports closed by default 
+- You must manually expose via -p, which is better default security!
+- This get even better later with Swarm and Overlay networks 
+
+
+### Docker Networks: DNS 
+
+The Domain Name System is a hierarchical and decentralized naming system for computers, services, or other resources connected to the Internet or a private network. 
+
+Forget IP's: Statis IP's and using IP's for talking to containers is an anti-pattern. Do your best to avoid it. 
+
+The built-in solution for this is DNS Naming. Docker daemon has a built-in DNS server that containers use by default. 
+
+To restart containers: `docker start  `docker ps -q -l` [name of continer]`
+
+`docker container exec -t mynginx ping new_nginx`
+
+The default bridge network has one disadvantage, it does not have the DNS server built-in by default so you can use the --link and specify manual links between continainer in that default link but it is much easier to create a new network for your apps so you don't have to do this every time. 
+
+ the default bridge network driver allow containers to communicate with each other when running on the same docker host.
+
+ cURL is a computer software project providing a library and command-line tool for transferring data using various network protocols. The name stands for "Client URL", which was first released in 1997.
+
+### Assignment CLI App Testing 
+- Use different Linux distro container to check curl cli tool version:
+--rm: 
+Removes all stopped containers
+This command will delete all stopped containers. The command docker ps -a -q will return all existing container IDs and pass them to the rm command which will delete them. Any running containers will not be deleted.
+
+
+`docker container run --rm -it centos:7 bash
+// inside bash 
+yum update curl`
+
+YUM (Yellowdog Updater Modified) is an open source command-line as well as graphical based package management tool for RPM (RedHat Package Manager) based Linux systems. It allows users and system administrator to easily install, update, remove or search software packages on a systems.
+
+
+- User two different terminal windows to start bash in both centos:7 and ubuntu:14.04, using -it 
+
+`docker container run --rm -it ubuntu:14.04 bash`
+
+- Learn the docker contianer --tm option so you can save cleanup
+
+
+- Ensure curl is installed and on latest version for that distro 
+  - apt-get update && apt-get install curl 
+  - centos: yum update curl 
+- Check curl --version
+
+nslookup search. 
