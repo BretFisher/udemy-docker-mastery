@@ -193,8 +193,6 @@ Load balancing refers to efficiently distributing incoming network traffic acros
 
 Modern high‑traffic websites must serve hundreds of thousands, if not millions, of concurrent requests from users or clients and return the correct text, images, video, or application data, all in a fast and reliable manner. To cost‑effectively scale to meet these high volumes, modern computing best practice generally requires adding more servers.
 
-A load balancer acts as the “traffic cop” sitting in front of your servers and routing client requests across all servers capable of fulfilling those requests in a manner that maximizes speed and capacity utilization and ensures that no one server is overworked, which could degrade performance. If a single server goes down, the load balancer redirects traffic to the remaining online servers. When a new server is added to the server group, the load balancer automatically starts to send requests to it.
-
 In this manner, a load balancer performs the following functions:
 
 Distributes client requests or network load efficiently across multiple servers
@@ -204,3 +202,72 @@ Provides the flexibility to add or subtract servers as demand dictates
 
 ### What's an image?
 
+**An image is the application binaries and dependencies on your app and the metadata about the image data and how to run the image.**
+
+
+Officially: "an image is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime."
+
+Inside the image, you can't find a complete OS. There is no kernel, no kernel modules like drivers, it's really just the binaries that your application needs because the host provides the kernel. 
+
+An image can be as small as one file (your app binary) like a golang static binary or it can be as bigkpkjpj as an Ubutu distro with apt, and Apache or PHP. 
+
+**Kernel** 
+The kernel is a computer program at the core of a computer's operating system with complete control over everything in the system. It is the "portion of the operating system code that is always resident in memory". It manages the operations of the computer and the hardware, most notably memory and CPU time. It facilitates interactions between hardware and software components. 
+
+
+### What is the right image?
+
+Go to hub.docker.com and search for the image that you are looking for. There are official ones, which you will most likely use. 
+
+`docker image ls` you will see the images that you have recently used. The tags will let you know which version it is if it's not the latest. 
+
+Best practice is to specify the exact version. 
+
+You will see alpine attached in some versions. Alpine is a very small and light version of linux. 
+
+The image ID is based upon the criptographic sha of each image in docker hub. 
+
+Images are designed using the union file system concept of making layers about the changes. 
+
+`docker history nginx:latest` 
+This is a history of the image layers. Every image starts with a blank layer known as scratch. Every set of changes that happen after that is another layer. 
+
+- Images are made up of file system changes and metadata
+- Each layer is uniquely identified and only stored once on a host
+- This saves storage space on host and transfer time on push/pull
+- A container is just a single read/write layer on top of an image 
+- `docker image history` and `docker image instpect` commands can teach us what's going on inside an image and how it was made. 
+
+
+We have to refer to the image by repository, tag, and 
+The tag of an image it's like a git tag. It's a pointer to a specific image commit and could be anything inside that repo. 
+
+To tag an image: 
+`docker image tag nginx bretfisher/nginx`
+The image that I am going to give a new tag to goes first and then the new tag that I want to give it.
+
+`docker image push bretfisher/nginx` uploads changed layers to an image registry (default is Hub)
+
+To push you need to login: `docker login`
+
+To build a dockerfile with a different name than the default with is Dockerfile: `docker build -f some-dockerfile`
+
+
+ENV 
+Environment variables: One reason they were chosen as preferred way to inject key/value is that they work everywhere, on every OS and config. 
+
+RUN commands:
+You will see them when you need to install software, or you need to unzip of edit files. Run commands can also run shell scripts and any command that you can access in the file. 
+
+Expose command 
+Exposes ports ont he docker virtual network 
+You still have to use -p or -P to open/forward these ports on host 
+
+CMD 
+required: run this command when container is launched 
+Only one CMD allowed, so if there are multiple, last one wins. 
+
+`docker image build -t customnginx .`
+
+
+Hello 
