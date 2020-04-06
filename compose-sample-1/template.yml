@@ -1,4 +1,4 @@
-version: '3.1'  # if no version is specificed then v1 is assumed. Recommend v2 minimum
+version: '3.1'  # if no version is specified then v1 is assumed. Recommend v2 minimum
 
 services:  # containers. same as docker run
   servicename: # a friendly name. this is also DNS name inside network
