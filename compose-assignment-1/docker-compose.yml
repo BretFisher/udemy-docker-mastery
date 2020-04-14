@@ -1,9 +1,8 @@
-version: '3.1'
+version: '2'  # if no version is specified then v1 is assumed. Recommend v2 minimum
 
 services:
   drupal:
-    image: custom-drupal
-    build: .
+    image: drupal:8.8.2
     ports:
       - "8080:80"
     volumes:
@@ -11,15 +10,13 @@ services:
       - drupal-profiles:/var/www/html/profiles
       - drupal-sites:/var/www/html/themes
       - drupal-themes:/var/www/html/sites
-      - drupal-data:/var/lib/postgresql/data
   postgres:
     image: postgres:12.1
     environment:
       - POSTGRES_PASSWORD=mypasswd
 
 volumes:
-    drupal-modules:
-    drupal-profiles:
-    drupal-sites:
-    drupal-themes:
-    drupal-data:
+  drupal-modules:
+  drupal-profiles:
+  drupal-sites:
+  drupal-themes:
