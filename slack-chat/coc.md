@@ -7,7 +7,7 @@ All members of our Slack group are required to agree with the following code of 
 * Be excellent to each other
 * Do not harass others
 * Don't spam the channels with links, or links to pages, for the purpose of monetization of user views and which provide no value to the community
-* We ecourage the use of real names and providing a brief description of yourself in your Slack profile
+* We encourage the use of real names and providing a brief description of yourself in your Slack profile
 
 ## The Quick Version
 
