@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+
+  python-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # networks:
+    #   - default
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      DB_HOST: mysql
+      DB_NAME: irancell
+      DB_USER: root
+      DB_PASSWORD: root
+
+  mysql:
+    image: mysql
+    restart: always
+    # networks:
+    #   - default
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: irancell
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+
+# networks:
+#   default:
+#     external:
+#       name: myapp
+
