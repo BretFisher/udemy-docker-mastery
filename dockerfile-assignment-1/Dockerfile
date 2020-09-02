@@ -24,7 +24,8 @@
 # - then it needs to run 'npm install' to install dependencies from that file
 # - to keep it clean and small, run 'npm cache clean --force' after above
 # - then it needs to copy in all files from current directory
-# - then it needs to start container with command '/sbin/tini -- node ./bin/www'
+# - then it needs to start container with command 'tini -- node ./bin/www'
+# - Note: Arguments inside the CMD should be in double quotes
 # - in the end you should be using FROM, RUN, WORKDIR, COPY, EXPOSE, and CMD commands
 
 # Bonus Extra Credit
