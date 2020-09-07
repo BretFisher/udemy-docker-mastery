@@ -17,7 +17,7 @@ services:
       # NOTE: this might be sample data you host in your CI server
       # so you can do integration testing with sample data
       # this may not work on Docker for Windows/Mac due to bind-mounting
-      # database data across OS's, which doesn't always work
+      # database data across OSes, which doesn't always work
       # in those cases you should use named volumes
       - ./sample-data:/var/lib/postgresql/data
 secrets:
