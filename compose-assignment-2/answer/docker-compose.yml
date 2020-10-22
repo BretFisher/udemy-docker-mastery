@@ -1,13 +1,9 @@
-# If taking Docker Mastery, this is the same file you created in 
-# ./compose-assignment-2
-# If taking Swarm Mastery, this is your starting point for adding secrets :)
-# reminder, this needs to change to 3.1 version to use secrets!
 version: '2'
+# NOTE: move this answer file up a directory so it'll work
 
 services:
 
   drupal:
-    # this Dockerfile needs at least drupal:8.8.2 to work with postgres:12
     image: custom-drupal
     build: .
     ports:

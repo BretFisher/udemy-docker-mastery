@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 services:
     redis:
         image: redis:alpine
@@ -10,6 +10,8 @@ services:
             - db-data:/var/lib/postgresql/data
         networks:
             - backend
+        environment:
+            - POSTGRES_HOST_AUTH_METHOD=trust
         deploy:
     vote:
         image: bretfisher/examplevotingapp_vote
@@ -37,3 +39,4 @@ networks:
     backend:
 volumes:
     db-data:
+

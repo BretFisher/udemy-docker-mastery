@@ -1,3 +1,5 @@
+# NOTE: move this answer file up a directory for it to work
+
 # Assignment Requirements
 # db must only run on a node with ssd=true label
 # vote should be HA with 2 replicas
@@ -13,17 +15,26 @@ services:
     db:
         image: postgres:9.6
         volumes:
-            - db-data:/var/lib/postgresql/data
-        environment:
-            - POSTGRES_HOST_AUTH_METHOD=trust
+            - 'db-data:/var/lib/postgresql/data'
         networks:
             - backend
+        environment:
+            - POSTGRES_HOST_AUTH_METHOD=trust
+        deploy:
+            placement:
+                constraints:
+                    - node.labels.ssd == true
     vote:
         image: bretfisher/examplevotingapp_vote
         ports:
             - '5000:80'
         networks:
             - frontend
+        deploy:
+            replicas: 2
+            placement:
+                constraints:
+                    - node.role == worker
     result:
         image: bretfisher/examplevotingapp_result
         ports:
@@ -35,6 +46,11 @@ services:
         networks:
             - frontend
             - backend
+        deploy:
+            mode: global
+            placement:
+                constraints:
+                    - node.role == worker
 networks:
     frontend: null
     backend: null
