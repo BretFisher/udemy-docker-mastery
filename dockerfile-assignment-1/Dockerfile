@@ -15,7 +15,10 @@
 
 
 # Instructions from the app developer
-# - you should use the 'node' official image, with the alpine 6.x branch
+# - you should use the 'node' official image, with the alpine 6.x branch (node:6-alpine)
+  #  yes this is a 2-year old image of node, but all official images are always
+  #  available on Docker Hub forever, to ensure even old apps still work.
+  #  It is common to still need to deploy old app versions, even years later.
 # - this app listens on port 3000, but the container should launch on port 80
   #  so it will respond to http://localhost:80 on your computer
 # - then it should use alpine package manager to install tini: 'apk add --update tini'
