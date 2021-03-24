@@ -25,7 +25,7 @@
 # - then it should create directory /usr/src/app for app files with 'mkdir -p /usr/src/app'
 # - Node uses a "package manager", so it needs to copy in package.json file
 # - then it needs to run 'npm install' to install dependencies from that file
-# - to keep it clean and small, run 'npm cache clean --force' after above
+# - to keep it clean and small, run 'npm cache clean --force' after abovef
 # - then it needs to copy in all files from current directory
 # - then it needs to start container with command '/sbin/tini -- node ./bin/www'
 # - in the end you should be using FROM, RUN, WORKDIR, COPY, EXPOSE, and CMD commands
@@ -38,3 +38,27 @@
 # Node Docker Good Defaults sample project on GitHub to change this Dockerfile for 
 # better local development with more advanced topics
 # https://github.com/BretFisher/node-docker-good-defaults
+
+FROM node:6-alpine
+
+# Expose port 80
+EXPOSE 80
+
+# use alpine package manager to install tini
+RUN apk add --update tini
+
+# create directory /usr/src/app for app files
+WORKDIR /usr/src/app
+
+COPY package.json package.json
+
+RUN npm install && npm cache clean --force
+
+COPY . .
+
+CMD /sbin/tini -- node ./bin/www
+
+
+
+
+
