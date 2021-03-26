@@ -41,11 +41,14 @@
 
 FROM node:6-alpine
 
-# Expose port 80
-EXPOSE 80
+# Expose port 3000
+EXPOSE 3000
 
 # use alpine package manager to install tini
 RUN apk add --update tini
+
+# create directory /usr/src/app for app files
+RUN mkdir -p /usr/src/app
 
 # create directory /usr/src/app for app files
 WORKDIR /usr/src/app
