@@ -1,1 +1,28 @@
 # create your drupal and postgres config here, based off the last assignment
+version: '3'
+
+services:
+  drupal:
+    build: .
+    image: custom-drupal
+    ports:
+      - '8080:80' # expose 80 on host and sent to 80 in container
+    volumes:
+      - drupal-modules:/var/www/html/modules 
+      - drupal-profiles:/var/www/html/profiles 
+      - drupal-sites:/var/www/html/sites 
+      - drupal-themes:/var/www/html/themes 
+
+  postgress:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=root
+    volumes:
+       - drupal-data:/var/lib/postgresql/data
+
+volumes:
+  drupal-modules:
+  drupal-profiles:
+  drupal-sites:
+  drupal-themes:
+  drupal-data:
