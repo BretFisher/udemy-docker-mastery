@@ -3,8 +3,6 @@ services:
 
   redis:
     image: redis:alpine
-    ports:
-      - "6379"
     networks:
       - frontend
     deploy:
@@ -78,10 +76,12 @@ services:
   visualizer:
     image: dockersamples/visualizer
     ports:
-      - "8080:8080"
+      - 8080:8080
     stop_grace_period: 1m30s
+    networks:
+      - frontend
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - /var/run/docker.sock:/var/run/docker.sock
     deploy:
       placement:
         constraints: [node.role == manager]
