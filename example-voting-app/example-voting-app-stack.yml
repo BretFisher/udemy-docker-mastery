@@ -5,7 +5,7 @@ services:
         networks:
             - frontend
     db:
-        image: postgres:9.6
+        image: postgres:13
         volumes:
             - db-data:/var/lib/postgresql/data
         networks:
@@ -28,7 +28,7 @@ services:
         networks:
             - backend
     worker:
-        image: bretfisher/examplevotingapp_worker:java
+        image: bretfisher/examplevotingapp_worker
         networks:
             - frontend
             - backend
