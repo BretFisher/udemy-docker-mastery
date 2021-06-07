@@ -51,7 +51,10 @@ services:
             retries: 3
             start_period: 20s
         deploy:
-            replicas: 2
+            # in local compose this will cause an error because we 
+            # hardcoded the port above to 5000 and unlike swarm,
+            # compose can't LB a single port across two containers
+            replicas: 1
             update_config:
                 failure_action: rollback
                 order: start-first
