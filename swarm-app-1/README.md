@@ -24,7 +24,7 @@ Here is a basic diagram of how the 5 services will work:
     - 1 replica NOTE VIDEO SAYS TWO BUT ONLY ONE NEEDED
 
 - worker
-    - bretfisher/examplevotingapp_worker:java
+    - bretfisher/examplevotingapp_worker
     - backend processor of redis and storing results in postgres
     - no public ports
     - on frontend and backend networks

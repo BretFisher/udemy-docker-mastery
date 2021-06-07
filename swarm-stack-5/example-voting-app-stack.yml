@@ -28,7 +28,7 @@ services:
         networks:
             - backend
     worker:
-        image: bretfisher/examplevotingapp_worker:java
+        image: bretfisher/examplevotingapp_worker
         networks:
             - frontend
             - backend
