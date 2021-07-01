@@ -6,7 +6,7 @@ Goal: This time imagine you're just wanting to learn Drupal's admin and GUI, or 
 - Let's pin image version from Docker Hub this time. It's always a good idea to do that so a new major version doesn't surprise you.
 
 ## Dockerfile
-- First you need to build a custom Dockerfile in this directory, `FROM drupal:8.8.2` NOTE: if it fails to build, try the lastest 8 branch version with `FROM drupal:8`
+- First you need to build a custom Dockerfile in this directory, `FROM drupal:8.8.2` NOTE: if it fails to build, try the latest 8 branch version with `FROM drupal:8`
 - Then RUN apt package manager command to install git: `apt-get update && apt-get install -y git`
 - Remember to cleanup after your apt install with `rm -rf /var/lib/apt/lists/*` and use `\` and `&&` properly. You can find examples of them in drupal official image. More on this below under Compose file.
 - Then change `WORKDIR /var/www/html/themes`
@@ -23,6 +23,6 @@ Goal: This time imagine you're just wanting to learn Drupal's admin and GUI, or 
 ## Start Containers, Configure Drupal
 - Start containers like before, configure Drupal web install like before.
 - After website comes up, click on `Appearance` in top bar, and notice a new theme called `Bootstrap` is there. That's the one we added with our custom Dockerfile.
-- Click `Install and set as default`. Then click `Back to site` (in top left) and the website interface should look different. You've successfully installed and activated a new theme in your own custom image without installing anything on your host other then Docker!
+- Click `Install and set as default`. Then click `Back to site` (in top left) and the website interface should look different. You've successfully installed and activated a new theme in your own custom image without installing anything on your host other than Docker!
 - If you exit (ctrl-c) and then `docker-compose down` it will delete containers, but not the volumes, so on next `docker-compose up` everything will be as it was.
 - To totally clean up volumes, add `-v` to `down` command.
