@@ -85,17 +85,52 @@ docker run --rm --entrypoint nginx nginx:1.21.4 -h
 In summary, you're not forced to create a new image to make changes to the entrypoint. Using the `--entrypoint` flag gives you an alternative approach while using `docker run` and any comamands and aruguments can be appended to the end like usual. 
 
 Resources
-- https://docs.docker.com/engine/reference/commandline/run/#options (--entrypoint)
+- https://docs.docker.com/engine/reference/commandline/run/#options
 
 
 ### Lecture 3: Using ENTRYPOINT and CMD in Docker Compose
 
-In this lecture, we will discuss compose properties.
+We've seen how we can use entrypoint and command together in our Dockerfiles and with the `docker run` command, but how does it work with `docker-compose`?
+
+Fortunately, `docker-compose` version 2 and 3 support `entrypoint:` and `command:`.
+
+![](/docs/images/entrypoint-cmd-compose.png)
+
+
+Let's modify the same example from previous lessons. Imagine you want to inspect the container filesystem of the nginx image.
+
+```yaml
+version: v3
+services:
+    nginx:
+        image: nginx:1.21.4
+        entrypoint: ls
+        command: ["-la", "/usr/share/nginx/html"]
+```
+```
+docker-compose up
+```
+Output:
+
+```bash
+[+] Running 1/1
+ ⠿ Container test-nginx-1  Recreated                                                       0.1s
+Attaching to test-nginx-1
+test-nginx-1  | total 16
+test-nginx-1  | drwxr-xr-x 2 root root 4096 Nov 17 13:20 .
+test-nginx-1  | drwxr-xr-x 3 root root 4096 Nov 17 13:20 ..
+test-nginx-1  | -rw-r--r-- 1 root root  497 Nov  2 14:49 50x.html
+test-nginx-1  | -rw-r--r-- 1 root root  615 Nov  2 14:49 index.html
+test-nginx-1 exited with code 0
+```
+
+> #### ! Note
+>  Using `entrypoint:` overrides both the default `ENTRYPOINT` on the image and removes any default `CMD`. 
+In other words, if there's a `CMD` instruction in the Dockerfile  __it will be ignored__. So remember to set `command:` if this is not what you want.
 
 Resources
 - https://docs.docker.com/compose/compose-file/compose-file-v3/#entrypoint
 - https://docs.docker.com/compose/compose-file/compose-file-v3/#command
-
 
 <hr/>
 
