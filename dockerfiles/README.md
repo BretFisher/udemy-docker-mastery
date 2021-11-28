@@ -68,7 +68,21 @@ Resources
 
 ### Lecture 2: USING ENTRYPOINT and CMD in the CLI
 
-In this lecture, we will discuss command line properties.
+You might be wondering if Docker provides a way to modify the `ENTRYPOINT`  without creating a new image? Maybe you want to override the `ENTRYPOINT` at runtime the same way you can override the default `CMD` of an image. 
+
+The `docker run` command has an optional `--entrpoint` flag for this.
+
+![](/docs/images/--entrypoint.png)
+
+Let's see an example that modifies both default entrypoint and command. In the previous lecture we saw how we could print nginx help text by creating a custom image. You can do the same thing in the command line.
+
+Run:
+
+```
+docker run --rm --entrypoint nginx nginx:1.21.4 -h
+````
+
+In summary, you're not forced to create a new image to make changes to the entrypoint. Using the `--entrypoint` flag gives you an alternative approach while using `docker run` and any comamands and aruguments can be appended to the end like usual. 
 
 Resources
 - https://docs.docker.com/engine/reference/commandline/run/#options (--entrypoint)
