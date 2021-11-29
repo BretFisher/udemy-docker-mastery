@@ -31,6 +31,9 @@ CMD ["-h"]
 # becomes "nginx -h"
 ```
 
+> #### ! Note
+>Setting `ENTRYPOINT` will remove the `CMD` instruction defined in the base image. If you need it, the `CMD` instruction must be redefined in the current image.
+
 Let's run it.
 ```bash
 docker build -t testnginx . # build image
