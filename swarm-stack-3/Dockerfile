@@ -1,7 +1,9 @@
 FROM drupal:8.8.2
 
 
-RUN apt-get update && apt-get install -y git \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # this next part was corrected in 2018 to be more clear on how you'd typically 

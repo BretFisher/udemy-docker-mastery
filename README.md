@@ -6,10 +6,10 @@ This repo is for use in my Udemy Courses "Docker Mastery" and "Swarm Mastery"
 
 NOTE: As of July 2020 the new default branch is `main`, so please update your clone if you're still on `master` branch.
 
-Get these courses for with my "cheapest on the Internet" coupon links:
+Get these courses for with my "cheapest on the internet" coupon links:
 
-https://www.bretfisher.com/courses
+[bretfisher.com/courses](https://www.bretfisher.com/courses)
 
-My other DevOps and Docker resources are at https://www.bretfisher.com/docker
+My other DevOps and Docker resources are at [bretfisher.com/docker](https://www.bretfisher.com/docker)
 
-Feel free to create issues or PRs if you find a problem with examples in this repo!
+Feel free to create issues or PRs if you find a problem with examples in this repository!
