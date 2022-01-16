@@ -12,6 +12,5 @@ jobs:
     # use Reusable Workflows to call my linter config remotely
     # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
     uses: bretfisher/super-linter-workflow/.github/workflows/super-linter.yaml@main
-    env:
-      # turn off css linting
-      VALIDATE_CSS: false
+    with:
+      devops-only: true
