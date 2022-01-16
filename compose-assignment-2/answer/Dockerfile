@@ -1,7 +1,8 @@
 FROM drupal:8.8.2
 
-
-RUN apt-get update && apt-get install -y git \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html/themes
