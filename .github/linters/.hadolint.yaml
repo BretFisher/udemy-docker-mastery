@@ -1,0 +1,10 @@
+ignored:
+  - DL3003 #ignore that we use cd sometimes
+  - DL3006 #image pin versions
+  - DL3008 #apt pin versions
+  - DL3018 #apk add pin versions
+  - DL3022 #bad rule for COPY --from
+  - DL3028 #gem install pin versions
+  - DL3059 #multiple consecutive runs
+  - DL4006 #we don't need pipefail in this
+  - SC2016 #we want single quotes sometimes
