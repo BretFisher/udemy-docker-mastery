@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # this creates urlencode-friendly files without EOL
 import urllib
 
