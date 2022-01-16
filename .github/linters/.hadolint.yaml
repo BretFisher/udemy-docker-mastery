@@ -1,9 +1,11 @@
 ignored:
   - DL3003 #ignore that we use cd sometimes
   - DL3006 #image pin versions
+  - DL3007 #for learning, latest is ok, sometimes
   - DL3008 #apt pin versions
   - DL3018 #apk add pin versions
   - DL3022 #bad rule for COPY --from
+  - DL3025 #for learning, we sometimes use shell notation
   - DL3028 #gem install pin versions
   - DL3059 #multiple consecutive runs
   - DL4006 #we don't need pipefail in this
