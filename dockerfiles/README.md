@@ -9,9 +9,8 @@ Table of Contents
 
 You remember `CMD`. That's the thing the container runs on start. There's also, `ENTRYPOINT`, which can also run things on start, but how do they work together?
 
-Everytime you start a container, docker takes `ENTRYPOINT` and `CMD` and just combines them into one long command with a space between them. 
+Everytime you start a container, docker takes `ENTRYPOINT` and `CMD` and just combines them into one long command with a space between them (e.g. `ENTRYPOINT` + [Space] + `CMD`)
 
-![](/docs/images/entrypoint-cmd.png)
 
 ### Why would you want this?
 
@@ -62,15 +61,22 @@ Options:
 ### 4 Rules
 There's 4 rules that describe how `CMD` and `ENTRYPOINT` interact.
 
-![](/docs/images/entrypoint-cmd-4rules.png)
+4 Rules For `CMD` & `ENTRYPOINT`
 
-Here's a table to visualize what command is executed for different `ENTRYPOINT` / `CMD` combinations.
+1) Dockerfile should specify at least one of the `CMD` or `ENTRYPOINT` commands.
+2) `ENTRYPOINT` should be defined when using the container as an executable.
+3) `CMD` should be used as a way of defining default arguments for an ENTRYPOINT command or for executing an ad-hoc command in a container.
+4) `CMD` will be overridden when running the container with alternative arguments.
+
+The resulting command will vary based on different `ENTRYPOINT` / `CMD` combinations. Here's a table to visualize this:
 
 ![](/docs/images/entrypoint-cmd-interaction.png)
 
+TODO: ADD EXAMPLE
+
 #### Summary
 
-So to recap an `ENTRYPOINT` allows you to configure the default executable for the container which can be extended with additional `CMD` options. Doing so allows you to create custom Dockerfiles for cli tools and your own scripts. You'll get more practice in future lectures and learn how to modify ENTRYPOINT and CMD at runtime.
+So to recap an `ENTRYPOINT` allows you to configure the default executable for the container which can be extended with additional `CMD` options. Doing so allows you to create custom Dockerfiles for cli tools and your own scripts. You'll get more practice in future lectures and learn how to modify `ENTRYPOINT` and CMD at runtime.
 
 Resources
 
@@ -81,9 +87,11 @@ Resources
 
 You might be wondering if Docker provides a way to modify the `ENTRYPOINT`  without creating a new image? Maybe you want to override the `ENTRYPOINT` at runtime the same way you can override the default `CMD` of an image. 
 
-The `docker run` command has an optional `--entrpoint` flag for this.
+The `docker run` command has an optional `--entrpoint` flag for this. An entrypoint supplied in the command line will overwrite any `ENTRYPOINT` defined in the Dockerfile.
 
-![](/docs/images/entrypoint-flag.png)
+``` 
+docker run --entrypoint IMAGE [command] [ARG...]
+```
 
 Let's see an example that modifies both default entrypoint and command. In the previous lecture we saw how we could print nginx help text by creating a custom image. You can do the same thing in the command line.
 
@@ -104,7 +112,12 @@ We've seen how we can use entrypoint and command together in our Dockerfiles and
 
 Fortunately, `docker-compose` version 2 and 3 support `entrypoint:` and `command:`.
 
-![](/docs/images/entrypoint-cmd-compose.png)
+You can override the default command and entrypoint. List values are also supported by both keys.
+
+```
+entrypoint: /app/entrypoint.sh 
+command: ["command", "--flag"]
+```
 
 
 Let's modify the same example from previous lessons. Imagine you want to inspect the container filesystem of the nginx image.
