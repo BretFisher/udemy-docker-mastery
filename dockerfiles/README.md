@@ -14,14 +14,14 @@ Everytime you start a container, docker takes `ENTRYPOINT` and `CMD` and just co
 
 ### Why would you want this?
 
-Combining `ENTRYPOINT` and `CMD` allows you to create Dockerfiles for cli tools and scripts. For example, the default `ENTRYPOINT` for the offical nginx image is a script:
+Combining `ENTRYPOINT` and `CMD` allows you to create Dockerfiles for command-line tools and scripts. For example, the default `ENTRYPOINT` for the offical nginx image is a script:
 
 ```dockerfile
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 # https://bit.ly/3FXw00f
 ```
-You can create a custom Dockerfile that uses the nginx binary directly. This might be useful if you want to use the cli tool with your own default options using `CMD`. Here's an example, we can replace the default `ENTRYPOINT` and configure nginx to print its help text.
+You can create a custom Dockerfile that uses the nginx binary directly. This might be useful if you want to use the command-line with your own default options using `CMD`. Here's an example, we can replace the default `ENTRYPOINT` and configure nginx to print its help text.
 
 ```dockerfile
 FROM nginx:1.21.4
@@ -76,7 +76,7 @@ TODO: ADD EXAMPLE
 
 #### Summary
 
-So to recap an `ENTRYPOINT` allows you to configure the default executable for the container which can be extended with additional `CMD` options. Doing so allows you to create custom Dockerfiles for cli tools and your own scripts. You'll get more practice in future lectures and learn how to modify `ENTRYPOINT` and CMD at runtime.
+So to recap an `ENTRYPOINT` allows you to configure the default executable for the container which can be extended with additional `CMD` options. Doing so allows you to create custom Dockerfiles for command-line tools and your own scripts. You'll get more practice in future lectures and learn how to modify `ENTRYPOINT` and CMD at runtime.
 
 Resources
 
@@ -87,13 +87,13 @@ Resources
 
 You might be wondering if Docker provides a way to modify the `ENTRYPOINT`  without creating a new image? Maybe you want to override the `ENTRYPOINT` at runtime the same way you can override the default `CMD` of an image. 
 
-The `docker run` command has an optional `--entrpoint` flag for this. An entrypoint supplied in the command line will overwrite any `ENTRYPOINT` defined in the Dockerfile.
+The `docker run` command has an optional `--entrpoint` flag for this. An entrypoint supplied in the command-line will overwrite any `ENTRYPOINT` defined in the Dockerfile.
 
 ``` 
 docker run --entrypoint IMAGE [command] [ARG...]
 ```
 
-Let's see an example that modifies both default entrypoint and command. In the previous lecture we saw how we could print nginx help text by creating a custom image. You can do the same thing in the command line.
+Let's see an example that modifies both default entrypoint and command. In the previous lecture we saw how we could print nginx help text by creating a custom image. You can do the same thing in the command-line.
 
 Run:
 
