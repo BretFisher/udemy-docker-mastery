@@ -7,36 +7,62 @@ Table of Contents
 
 ### Lecture 1: What's an ENTRYPOINT?
 
-You remember `CMD`. That's the thing the container runs on start. There's also, `ENTRYPOINT`, which can also run things on start, but how do they work together?
+You remember `CMD`. That's the thing the container runs on start. There's also, `ENTRYPOINT`, which can also run things on start, but how are they different?
 
-Everytime you start a container, docker takes `ENTRYPOINT` and `CMD` and just combines them into one long command with a space between them (e.g. `ENTRYPOINT` + [Space] + `CMD`)
+An `ENTRYPOINT` allows you to configure a container that will run as an executable. You can think of it as a building block where you can stack additional commands too.
 
+Everytime you start a container, docker takes `ENTRYPOINT` and `CMD` and just combines them into one long command with a space between them (e.g. `ENTRYPOINT` + [Space] + `CMD`).
+
+For example, the offical mysql image makes use of an `ENTRYPOINT`:
+
+```dockerfile
+FROM debian:buster-slim
+
+# ommitted ...
+
+VOLUME /var/lib/mysql
+
+# Config files
+COPY config/ /etc/mysql/
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 3306 33060
+CMD ["mysqld"]
+```
+<small>[full example](https://github.com/docker-library/mysql/blob/aa600026fe54b1fa6b2a7ac80ffbb466618fcabf/8.0/Dockerfile.debian)</small>
+
+If you were to build and run a container of this image the resulting command would be: 
+
+```
+./docker-entrypoint.sh mysqld
+```
+
+i.e., `ENTRYPOINT` + [Space] + `CMD`
 
 ### Why would you want this?
 
-Combining `ENTRYPOINT` and `CMD` allows you to create Dockerfiles for command-line tools and scripts. For example, the default `ENTRYPOINT` for the offical nginx image is a script:
+Combining `ENTRYPOINT` and `CMD` provides you better flexiblity in creating Dockerfiles for command-line tools and scripts. Simply use an `ENTRYPOINT` as your base foundation, then add additional defaults using a `CMD` statement to build upon the `ENTRYPOINT`. The best thing is, if you want to make modifications to the defaults an runtime, you can override the command without replacing the `ENTRYPOINT`.
 
-```dockerfile
-ENTRYPOINT ["/docker-entrypoint.sh"]
+Here's another example. The nginx image also uses a `docker-entrypoint.sh` for its `ENTRYPOINT`. 
 
-# https://bit.ly/3FXw00f
-```
-You can create a custom Dockerfile that uses the nginx binary directly. This might be useful if you want to use the command-line with your own default options using `CMD`. Here's an example, we can replace the default `ENTRYPOINT` and configure nginx to print its help text.
+[full example](https://github.com/nginxinc/docker-nginx/blob/2decc81a019b5df087c9162d3621b1c9beb3104f/mainline/debian/Dockerfile)
 
-```dockerfile
-FROM nginx:1.21.4
-ENTRYPOINT ["nginx"]
-CMD ["-h"]
-# becomes "nginx -h"
-```
+By default, the image appends a command to the `ENTRYPOINT` which results in nginx running in the foreground. The `ENTRYPOINT` is used to add desired setup before nginx starts, like silencing the logs if an environment variable is set. Applying setup configuration is a great example for where you might want to use an `ENTRYPOINT`. 
 
-> #### ! Note
->Setting `ENTRYPOINT` will remove the `CMD` instruction defined in the base image. If you need it, the `CMD` instruction must be redefined in the current image.
+### Exercise
 
-Let's run it.
+Let's create a custom image that uses the nginx binary directly as the `ENTRYPOINT` and configure nginx to print its help text with an additional command argument.
+
+[entrypoint-1 example](/dockerfiles/entrypoint-1/Dockerfile)
+
+Setting `ENTRYPOINT` will remove the `CMD` instruction defined in the nginx base image. So keep that in mind, if you need this, the `CMD` instruction must be redefined in the current image.
+
+Build and the image.
 ```bash
-docker build -t testnginx . # build image
-docker run --rm testnginx   # start container
+docker build -t testnginx .
+docker run --rm testnginx   
 ```
 
 Output:
@@ -58,25 +84,10 @@ Options:
   -c filename   : set configuration file (default: /etc/nginx/nginx.conf)
   -g directives : set global directives out of configuration file
 ```
-### 4 Rules
-There's 4 rules that describe how `CMD` and `ENTRYPOINT` interact.
 
-4 Rules For `CMD` & `ENTRYPOINT`
+### Summary
 
-1) Dockerfile should specify at least one of the `CMD` or `ENTRYPOINT` commands.
-2) `ENTRYPOINT` should be defined when using the container as an executable.
-3) `CMD` should be used as a way of defining default arguments for an ENTRYPOINT command or for executing an ad-hoc command in a container.
-4) `CMD` will be overridden when running the container with alternative arguments.
-
-The resulting command will vary based on different `ENTRYPOINT` / `CMD` combinations. Here's a table to visualize this:
-
-![](/docs/images/entrypoint-cmd-interaction.png)
-
-TODO: ADD EXAMPLE
-
-#### Summary
-
-So to recap an `ENTRYPOINT` allows you to configure the default executable for the container which can be extended with additional `CMD` options. Doing so allows you to create custom Dockerfiles for command-line tools and your own scripts. You'll get more practice in future lectures and learn how to modify `ENTRYPOINT` and CMD at runtime.
+So to recap an `ENTRYPOINT` allows you to configure the default executable for the container which can be extended with additional `CMD` options. Doing so allows you to create custom Dockerfiles for command-line tools and your own scripts. You'll get more practice in future lectures and learn how to modify `ENTRYPOINT` and `CMD` at runtime.
 
 Resources
 
@@ -100,11 +111,72 @@ Run:
 ```
 docker run --rm --entrypoint nginx nginx:1.21.4 -h
 ```
+### 4 Rules
+There's 4 rules that describe how `CMD` and `ENTRYPOINT` interact.
 
-In summary, you're not forced to create a new image to make changes to the entrypoint. Using the `--entrypoint` flag gives you an alternative approach while using `docker run` and any comamands and aruguments can be appended to the end like usual. 
+4 Rules For `CMD` & `ENTRYPOINT`
+
+1) Dockerfile should specify at least one of the `CMD` or `ENTRYPOINT` commands.
+2) `ENTRYPOINT` should be defined when using the container as an executable.
+3) `CMD` should be used as a way of defining default arguments for an ENTRYPOINT command or for executing an ad-hoc command in a container.
+4) `CMD` will be overridden when running the container with alternative arguments.
+
+When you combine the `ENTRYPOINT` and the `CMD` [the resulting command may vary](https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact) based on usage of either _shell_ or _exec_ form in the Dockerfile. If you use shell form with `ENTRYPOINT`, any `CMD` or run command-line arguements will be ignored and `ENTRYPOINT` will be started as a subcommand of `/bin/sh -c` which doesn't pass Unix signals like `SIGTERM` from `docker stop <container>`.
+
+### Exercise
+Let's see a fun example in action. 
+
+[entrypoint-2 example](dockerfiles/../entrypoint-2/Dockerfile)
+
+We have a silly bash script that iterates over the lyrics of Rick Astley's "Never gonna give you up". If  `--link` or `-l` flags are passed to the `ENTRYPOINT` the script will print the Youtube link for the song. However, it shouldn't until we modify the Dockerfile because currently the `ENTRYPOINT` is using shell form.
+
+If you inspect the bash script, you'll see it makes use of a `trap`. A `trap` is used to capture most Unix signals when they occur and allows you to execute a command in response. In practice, this is often used to clean up resources before the script exits.
+
+> Note! `trap` cannot capture `SIGKILL` and `SIGSTOP`. [Learn more.](https://stackoverflow.com/questions/58139053/catch-sigstop-with-sigkill-before-gracefully)
+
+The `trap` syntax is:  `trap [command] [signal...]` where one or more signal are separated by a space.
+
+We'll use `trap` to confirm using the `ENTRYPOINT` with shell form prevents Unix signals from being passed to our script. We'll also confirm that `CMD` commands and command-line arugments will be ignored.
+
+Let's run it.
+
+```bash
+docker build -t rick .
+docker run rick # CMD ["--link"] is ignored 😱
+docker run rick -l # command-line arguments are ignored
+```
+If you try to stop the containers with `docker stop <container>` the trap will not print the shutting down text. This confirms the `SIGTERM` signal is not passed to the script. Also, since the resulting commands never recieve the link flags this confirms the containers are tied to what we declared in the `ENTRYPOINT` using shell form.
+```
+never gonna give you up
+never gonna let you down
+never gonna run around and desert you
+never gonna make you cry
+never gonna say goodbye
+never gonna tell a lie and hurt you
+```
+Update the `ENTRYPOINT` in the Dockerfile to use exec form, then rebuild the image and try the commands again. This time the link flags should be appended to the `ENTRYPOINT`. Furthermore, the trap in the script will capture the `SIGTERM` triggered by `docker stop` as expected. Use `docker ps` to grab the container id. 
+
+```bash
+docker ps 
+docker stop db532d2ef5d6
+```
+The result:
+```
+Youtube link: https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley
+never gonna give you up
+never gonna let you down
+never gonna run around and desert you
+never gonna make you cry
+never gonna say goodbye
+shutting down
+```
+
+In summary, you're not forced to create a new image to make changes to the entrypoint. Using the `--entrypoint` flag gives you an alternative approach while using `docker run`. Remember, any comamand-line aruguments will be appended to the end any `ENTRYPOINT` in the image as long as the `ENTRYPOINT` is not using shell form, otherwise, the command-line arguments and signals will be ignored.
 
 Resources
 - https://docs.docker.com/engine/reference/commandline/run/#options
+- https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact
+- https://stackoverflow.com/questions/58139053/catch-sigstop-with-sigkill-before-gracefully
 
 ### Lecture 3: Using ENTRYPOINT and CMD in Docker Compose
 
