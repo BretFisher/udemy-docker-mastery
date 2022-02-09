@@ -1,0 +1,4 @@
+{
+  "MD033": { "allowed_elements": ["details", "summary", "br", "small"] },
+  "line-length": false
+}
