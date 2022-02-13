@@ -205,7 +205,7 @@ shutting down
 You're not forced to create a new image to make changes to the entrypoint.
 Using the `--entrypoint` flag is an alternate approach while using `docker run`.
 
-Any comamand-line aruguments will be appended to the end of any `ENTRYPOINT`, in the image as long as the `ENTRYPOINT` is not using shell form, otherwise, the command-line arguments and signals will be ignored.
+Comamand-line aruguments will be appended to the end of any `ENTRYPOINT`, unless the `ENTRYPOINT` is using shell form, in which case, all command-line arguments and Unix signals will be ignored by the `ENTRYPOINT`.
 
 Resources
 
