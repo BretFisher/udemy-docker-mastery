@@ -5,14 +5,19 @@ Table of Contents
 - [Understanding ENTRYPOINT and CMD](#understanding-entrypoint-and-cmd)
   - [Lecture 1: What's an ENTRYPOINT?](#lecture-1-whats-an-entrypoint)
     - [Why would you want this?](#why-would-you-want-this)
-    - [Exercise 1](#exercise-1)
+    - [Exercise](#exercise)
     - [Summary](#summary)
   - [Lecture 2: USING ENTRYPOINT and CMD in the CLI](#lecture-2-using-entrypoint-and-cmd-in-the-cli)
+    - [Exercise](#exercise-1)
     - [4 Rules](#4-rules)
+    - [Gotchas](#gotchas)
     - [Exercise 2](#exercise-2)
+    - [Summary](#summary-1)
   - [Lecture 3: Using ENTRYPOINT and CMD in Docker Compose](#lecture-3-using-entrypoint-and-cmd-in-docker-compose)
-  - [</details>](#details)
-    - [Assignment 1: Build a curl image](#assignment-1-build-a-curl-image)
+    - [Exercise](#exercise-2)
+    - [Summary](#summary-2)
+  - [Quiz](#quiz)
+  - [Assignment: Build a curl image](#assignment-build-a-curl-image)
 
 ## Lecture 1: What's an ENTRYPOINT?
 
@@ -61,7 +66,7 @@ Here's another example. The nginx image also uses a `docker-entrypoint.sh` for i
 
 By default, the image appends a command to the `ENTRYPOINT` which results in nginx running in the foreground. The `ENTRYPOINT` is used to add desired setup before nginx starts, like silencing the logs if an environment variable is set. Applying setup configuration is a great example for where you might want to use an `ENTRYPOINT`.
 
-### Exercise 1
+### Exercise
 
 Let's create a custom image that uses the nginx binary directly as the `ENTRYPOINT` and configure nginx to print its help text with an additional command argument.
 
@@ -116,6 +121,8 @@ The `docker run` command has an optional `--entrpoint` flag for this. An entrypo
 docker run --entrypoint IMAGE [command] [ARG...]
 ```
 
+### Exercise
+
 Let's see an example that modifies both default entrypoint and command. In the previous lecture we saw how we could print nginx help text by creating a custom image. You can do the same thing in the command-line.
 
 Run:
@@ -134,6 +141,8 @@ There's 4 rules that describe how `CMD` and `ENTRYPOINT` interact.
 2) `ENTRYPOINT` should be defined when using the container as an executable.
 3) `CMD` should be used as a way of defining default arguments for an ENTRYPOINT command or for executing an ad-hoc command in a container.
 4) `CMD` will be overridden when running the container with alternative arguments.
+
+### Gotchas
 
 When you combine the `ENTRYPOINT` and the `CMD` [the resulting command may vary](https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact) based on usage of either _shell_ or _exec_ form in the Dockerfile. If you use shell form with `ENTRYPOINT`, any `CMD` or run command-line arguements will be ignored and `ENTRYPOINT` will be started as a subcommand of `/bin/sh -c` which doesn't pass Unix signals like `SIGTERM` from `docker stop <container>`.
 
@@ -191,6 +200,8 @@ never gonna say goodbye
 shutting down
 ```
 
+### Summary
+
 You're not forced to create a new image to make changes to the entrypoint.
 Using the `--entrypoint` flag is an alternate approach while using `docker run`.
 
@@ -215,16 +226,11 @@ entrypoint: /app/entrypoint.sh
 command: ["command", "--flag"]
 ```
 
+### Exercise
+
 Let's modify the same example from previous lessons. Imagine you want to inspect the container filesystem of the nginx image.
 
-```yaml
-version: v3
-services:
-    nginx:
-        image: nginx:1.21.4
-        entrypoint: ls
-        command: ["-la", "/usr/share/nginx/html"]
-```
+[entrypoint-3](/dockerfiles)
 
 ```shell
 docker-compose up
@@ -249,6 +255,10 @@ test-nginx-1 exited with code 0
 > Using `entrypoint:` overrides both the default `ENTRYPOINT` on the image and removes any default `CMD`.
 In other words, if there's a `CMD` instruction in the Dockerfile  __it will be ignored__. So remember to set `command:` if this is not what you want.
 
+### Summary
+
+We can use `entrypoint:` and `command:` in our compose files to overwrite the `ENTRYPOINT` and `CMD` in our Dockerfiles. Remember that `entrypoint:` overrides both the default `ENTRYPOINT` and `CMD` of the image.
+
 Resources
 
 - <https://docs.docker.com/compose/compose-file/compose-file-v3/#entrypoint>
@@ -256,59 +266,87 @@ Resources
 
 ---
 
-<details>
-<summary>Quiz</summary>
+## Quiz
 
 <br/>
 
-1. When would you want to use both a command and entrypoint?
+1. __When would you want to use both a CMD and ENTRYPOINT?__
 
-    A)
+    A) When you want to configure the default executable for the container and extend it with additional command options.
 
-    B)
+    B) When the `ENTRYPOINT` is being sassy.
 
-    C)
+    C) When you want to use docker-compose.
 
-    D)
+    D) When you want to use a shell script.
 
-2. Which of the following statements are true?
+    <details>
+    <summary>See Quiz Answers</summary>
+    <br>
 
-    A)
+     - __Answser: A__
 
-    B)
+        B) Incorrect. This was joke.
 
-    C)
+        C) Incorrect. You can override entrypoints and commands in docker cli and docker-compose.
 
-    D)
+        D) Incorrect. Entrypoints don't have to be shell scripts to take advantage of commands.
 
-3. Select the correct way to do X?
+    </details>
+    <br>
 
-    A)
+2. __Why does the resulting command vary when combining ENTRYPOINT and CMD?__
 
-    B)
+    A) `ENTRYPOINT` and `CMD` behavior is unpredictable.
 
-    C)
+    B) Using _exec form_ and _shell form_ in the same Dockerfile creates varying results.
 
-    D)
+    C) Using _shell form_ in an `ENTRYPOINT` creates varying results.
 
-<br>
+    D) Using _exec form_ in an `ENTRYPOINT` creates varying results.
 
-<details>
-<summary>See Quiz Answers</summary>
-<br>
+    <details>
+    <summary>See Quiz Answers</summary>
+    <br>
 
-- Q1: __A__
-- Q2: __C__
-- Q3: __D__
+     - __Answser: C__
 
-</details>
-</details>
+        A) Incorrect. There are rules that govern how `ENTRYPOINT` and `CMD` interact.
+
+        B) Incorrect. Using _exec form_ and _shell form_ in the same Dockerfile is not the true cause of variation.
+
+        D) Incorrect. Variation has nothing to do with using _exec form_ in an `ENTRYPOINT`.
+
+    </details>
+    <br>
+
+3. __Which of the following statements are true?__
+
+    A) Using `entrypoint`: in a compose file requires the image to have `ENTRYPOINT` declared.
+
+    B) Using `entrypoint:` in a compose file requires you to also set `command:`.
+
+    C) `entrypoint:` in a compose file _only_ overwrites the `ENTRYPOINT` in the image.
+
+    D) `entrypoint:` in a compose file overwrites the `ENTRYPOINT` and `CMD` in the image.
+
+    <details>
+    <summary>See Quiz Answers</summary>
+    <br>
+
+     - __Answser: D__
+
+        A) Incorrect. Using `entrypoint`: does not require the image to have `ENTRYPOINT` declared.
+
+        B) Incorrect. Using `entrypoint:` does not require you to also set `command:`.
+
+        C) Incorrect. `entrypoint:` overwrites the `ENTRYPOINT` and the `CMD` in the image.
+
+    </details>
+    <br>
+
 ---
 
-### Assignment 1: Build a curl image
+## Assignment: Build a curl image
 
-For this assignment, your task is to...
-
-Assignment Files
-
-[/dockerfiles/entrypoint-command-assignment-1](/dockerfiles/entrypoint-cmd-assignment-1)
+[see assignment-1](/dockerfiles/entrypoint-assignment-1)

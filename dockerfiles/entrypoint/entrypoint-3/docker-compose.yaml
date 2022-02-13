@@ -1,0 +1,6 @@
+version: "2.4"
+services:
+    nginx:
+        image: nginx:1.21.4
+        entrypoint: ls
+        command: ["-la", "/usr/share/nginx/html"]
