@@ -144,7 +144,7 @@ There's 4 rules that describe how `CMD` and `ENTRYPOINT` interact.
 
 ### Gotchas
 
-When you combine the `ENTRYPOINT` and the `CMD` [the resulting command may vary](https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact) based on usage of either _shell_ or _exec_ form in the Dockerfile. If you use shell form with `ENTRYPOINT`, any `CMD` or run command-line arguements will be ignored and `ENTRYPOINT` will be started as a subcommand of `/bin/sh -c` which doesn't pass Unix signals like `SIGTERM` from `docker stop <container>`.
+When you combine the `ENTRYPOINT` and the `CMD` [the resulting command may vary](https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact) based on usage of either _shell_ or _exec_ form in the Dockerfile. If you use shell form with `ENTRYPOINT`, any `CMD` or run command-line arguments will be ignored and `ENTRYPOINT` will be started as a subcommand of `/bin/sh -c` which doesn't pass Unix signals like `SIGTERM` from `docker stop <container>`.
 
 ### Exercise 2
 
@@ -205,7 +205,7 @@ shutting down
 You're not forced to create a new image to make changes to the entrypoint.
 Using the `--entrypoint` flag is an alternate approach while using `docker run`.
 
-Comamand-line aruguments will be appended to the end of any `ENTRYPOINT`, unless the `ENTRYPOINT` is using shell form, in which case, all command-line arguments and Unix signals will be ignored by the `ENTRYPOINT`.
+Comamand-line arguments will be appended to the end of any `ENTRYPOINT`, unless the `ENTRYPOINT` is using shell form, in which case, all command-line arguments and Unix signals will be ignored by the `ENTRYPOINT`.
 
 Resources
 
