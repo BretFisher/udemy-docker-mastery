@@ -5,3 +5,7 @@ MD013:
   # Number of characters for headings
   heading_line_length: 100
   code_blocks: false
+
+# MD033/html - Inline HTML
+MD033:
+  allowed_elements: ["details", "summary", "br", "small"]
