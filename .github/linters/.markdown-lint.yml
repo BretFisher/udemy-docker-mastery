@@ -9,4 +9,3 @@ MD013:
 # MD033/html - Inline HTML
 MD033:
   allowed_elements: ["details", "summary", "br", "small"]
-  code_blocks: false
