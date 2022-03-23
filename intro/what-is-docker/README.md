@@ -52,7 +52,7 @@ so for now, let’s briefly give you the basics, starting with the container ima
 
 Now we’re gonna get into way more detail on those three things throughout this course.
 
-Now that you know a bit about those three Docker innovations, you should understand *why* docker needed to exist, and what problems it solves. 
+Now that you know a bit about those three Docker innovations, you should understand *why* docker needed to exist, and what problems it solves.
 
 That’s next!
 
