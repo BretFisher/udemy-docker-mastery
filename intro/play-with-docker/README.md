@@ -96,7 +96,7 @@ But wait, so much happened in the background that you might have missed it, so l
 3. Docker Engine can't find a cached image locally called `httpd:latest`, so it downloads it from Docker Hub first.
 4. Docker Engine creates a new container from the `httpd:latest` image.
 5. Docker Engine creates a new virtual ethernet interface on the host and connects it to the container. This `veth` is connected to Docker's default network, which is [NATed](https://en.wikipedia.org/wiki/Network_address_translation) behind the host NIC.
-6. Docker Engine assigns a unique IP to the container, which is a private subnet that docker controls. By default it routes through the host IP to access the real network gateway and Internet.
+6. Docker Engine assigns a unique IP to the container, which is a private subnet that docker controls. By default it routes through the host IP to access the real network gateway and internet.
 7. Docker Engine asks the host to open port 8800 on our host IP (and localhost) and forward that traffic into the container IP on port 80, which is where Apache listens by default.
 8. Docker Engine starts the container process `httpd`.
 9. Docker Engine returns a unique container ID to the client.
