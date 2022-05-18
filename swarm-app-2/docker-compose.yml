@@ -1,7 +1,7 @@
 # If taking Docker Mastery, this is the same file you created in 
 # ./compose-assignment-2
 # If taking Swarm Mastery, this is your starting point for adding secrets :)
-# reminder, this needs to change to 3.1 version to use secrets!
+# reminder, this needs to change to 3.9 version to use secrets!
 version: '2'
 
 services:
