@@ -2,15 +2,15 @@
 
 > Nav: [Back to Intro Lectures](../README.md)
 
-Now that you know the basics of what Docker is, you might be thinking that this sounds like a lot of work to re-package software just so we can run it a different way. Obviously we all were building, distributing, and running software before Docker came along, so "Why Docker, and Why Now?".
+Now that you know the basics of what Docker is, you might be thinking that this sounds like a lot of work to re-package software so that we can run it a different way. Obviously we all were building, distributing, and running software before Docker came along, so "Why Docker, and Why Now?".
 
-Docker *needed* to exist because the old ways were full of friction and complexity when met with the modern area of software development and the speed at which we needed to operate in ever-growing teams. I've broken this down into three main reasons Docker (and modern containers) needed to exist.
+Docker *needed* to exist because the old ways were full of friction and complexity when met with the modern area of software development and the speed at which we needed to operate. I've broken this down into three main reasons Docker (and modern containers) needed to exist.
 
 - The Problem of Isolation
 - The Problem of Environments
 - The Problem of Speed
 
-## The Problem of Isolation
+## The problem of isolation
 
 Long ago (decades) it was common for sysadmins to just need a few bare metal servers, and combine a bunch of unrelated software services on each. Physical servers were expensive, with long lead times to obtain more. Any one server may run several or dozens of unrelated business-related processes in order to 1. reduce the number of systems each sysadmin needed to manage and 2. get better utilization out of each expensive server.
 
@@ -42,7 +42,7 @@ They started realizing the benefits of this design, including:
 
 > This is it. Containers are the next once-in-a-decade shift in infrastructure and process that can make or break your success. --Bret Fisher 😎
 
-## The Problem of Environments
+## The problem of environments
 
 Have you ever heard of the [Works on My Machine](https://blog.codinghorror.com/the-works-on-my-machine-certification-program/) (WOMM) problem?
 
@@ -72,13 +72,15 @@ Ideally, if you've containerized an app, the matrix looks like this:
 
 We've reduced the N+1 number of environments for how to build and run our software to 1.
 
-## The Problem of Speed
+## The problem of speed
 
 Every major shift in computing has been motivated by speed. Not necessarily the speed of CPUs or networks directly, but the speed of delivering ideas into software, and software to users.
 
 From the mainframes of the 70s to the PCs of the 90s. From the virtualization of the 00s to the cloud of the 10s. It was motivated by getting human ideas into code, and into the customers hands as fast as possible, then repeat.
 
-By combining the ideas of the image, registry, and container, Docker improves the time-to-complete in nearly every part of the software lifecycle:
+![Major infrastructure shifts](images/major-infrastructure-shifts.png)
+
+By combining the ideas of the image, registry, and container, Docker (and the tooling it inspired) improves the time-to-complete in nearly every part of the software lifecycle:
 
 - Develop faster
 - Build faster
@@ -87,9 +89,9 @@ By combining the ideas of the image, registry, and container, Docker improves th
 - Update faster
 - Recover faster
 
-Docker also did something that often didn't happen with these previous decade-long shifts in computing: They designed it to be used with *existing* apps, often avoiding any changes to source code. This only accelerated the adoption of containers, often with enterprises migrating hundreds of existing applications to Docker.
+Docker also did something that often didn't happen with these previous decade-long shifts in computing: They designed it to be used with *existing* apps, often avoiding any changes to source code. **This greatly accelerated the adoption of containers**, often with enterprises migrating hundreds of existing applications to Docker in just a few years.
 
-In the early days of enterprise adoption, we were seeing data showing the kind of incredible benefits that you only see once every decade in the software world. Large complex multi-national companies were reporting before/after benefits of containerization such as:
+In the early days of enterprise adoption, we were seeing data (coming out of Docker Inc.) showing the kind of incredible benefits that you only see once every decade in the software world. Large complex multi-national companies were reporting before/after benefits of containerization such as:
 
 - 70% reduction in VM costs
 - 50% developer productivity boost
@@ -98,3 +100,7 @@ In the early days of enterprise adoption, we were seeing data showing the kind o
 - 50% increase in speed of build-test-deploy cycles
 
 Even with the added complexity of "Dockerizing" existing apps, re-tooling systems, and training engineering teams in Docker, these numbers are still impressive.
+
+## Why Docker, why now?
+
+Hopefully my three points started to convince you that Docker is the right tool for the job, at the right time in the evolution of IT and creating software. If you're still not convinced, you can read more about Docker in the [Docker Documentation](https://docs.docker.com/engine/userguide/).

@@ -20,7 +20,7 @@ Docker calls this the "Build, Ship and Run" lifecycle.
 
 ![Docker Build, Ship and Run](images/build-ship-run.png)
 
-These are the basics that all other container technology is built on. Kubernetes, Swarm, Helm and most the cloud native tooling assumes you're using these three innovations.
+These are the basics that all other container technology is built on. Kubernetes, Swarm, Helm and [most the cloud native tooling](https://landscape.cncf.io/) assumes you're using these three innovations.
 
 We’ll learn a lot more about these three innovations in this course, so for now, I'll give you the basics. Note that these three innovations now have standard specifications and are governed by the [Open Container Initiative (OCI)](https://opencontainers.org/about/overview/), which is part of the Linux Foundation.
 
