@@ -1,5 +1,4 @@
-# version isn't needed as of 2020. All 2.x and 3.x features supported
-# version: '3'
+version: '3.9'
 
 services:
   proxy:
