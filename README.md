@@ -1,6 +1,6 @@
 # Udemy Course Docker Mastery: with Kubernetes+Swarm from a Docker Captain
 
-[![Lint Code Base](https://github.com/BretFisher/udemy-docker-mastery/actions/workflows/linter.yml/badge.svg)](https://github.com/BretFisher/udemy-docker-mastery/actions/workflows/linter.yml)
+[![Lint Code Base](https://github.com/BretFisher/udemy-docker-mastery/actions/workflows/call-super-linter.yaml/badge.svg)](https://github.com/BretFisher/udemy-docker-mastery/actions/workflows/call-super-linter.yaml)
 
 > Build, test, deploy containers with the best mega-course on Docker, Kubernetes, Compose, Swarm and Registry using DevOps
 
