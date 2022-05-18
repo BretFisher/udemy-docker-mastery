@@ -33,4 +33,4 @@ jobs:
       
       ### A regex to exclude files from linting
       ### defaults to empty
-      filter-regex-exclude: .*compose-sample-3/html/.*
+      filter-regex-exclude: .*compose-sample-3/html/.*,.*dockerfile-sample-1/.*

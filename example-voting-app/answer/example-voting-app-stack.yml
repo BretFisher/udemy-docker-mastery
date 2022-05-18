@@ -17,7 +17,7 @@ services:
         target: /usr/local/bin/redis-healthcheck
         mode: 0555
     networks:
-        - frontend
+      - frontend
   db:
     image: postgres:9.6
     healthcheck:
@@ -86,4 +86,3 @@ configs:
     file: ./redis-healthcheck
   postgres-healthcheck:
     file: ./postgres-healthcheck
-
