@@ -12,11 +12,15 @@ Docker *needed* to exist because the old ways were full of friction and complexi
 
 ## The problem of isolation
 
+![90s and 2000s: few servers with many apps](images/isolation-bare-metal.excalidraw.png)
+
 Long ago (decades) it was common for sysadmins to just need a few bare metal servers, and combine a bunch of unrelated software services on each. Physical servers were expensive, with long lead times to obtain more. Any one server may run several or dozens of unrelated business-related processes in order to 1. reduce the number of systems each sysadmin needed to manage and 2. get better utilization out of each expensive server.
 
 The problem was each of these systems was quite complex, and we had to strike a delicate balance between getting good use of these expensive servers and avoiding one app from affecting (or breaking) another. Isolation features weren't mature, so we were often afraid to touch one app on a system, in fear of breaking another. Luckily, software releases were far and few between, usually on floppy or CD, so these events, while rare, required significant planning and effort.
 
-Over the years (90s and 00s) the pace of software updates started to quicken, and the internet fed this fire. Updates were coming quarterly rather than yearly. Virtual machines (VMs) became a reality and in just a few years the number of systems each of us were managing exploded. We could no longer handle one-at-a-time systems management. We had to create a whole new set of tools to manage them all, including Puppet and Chef.
+Over the years (2000s) the pace of software updates started to quicken, and the internet fed this fire. Updates were coming quarterly rather than yearly. Virtual machines (VMs) became a reality and in just a few years the number of systems each of us were managing exploded. We could no longer handle one-at-a-time systems management. We had to create a whole new set of tools to manage them all, including Puppet and Chef.
+
+![2000s-2010s: many servers with a few apps](images/isolation-vm-cloud.excalidraw.png)
 
 Once we got a handle on our sprawling VM count, we **started to operationalize around the "one app, one VM" model**. You might install the PHP app on one VM, and the Python app on another one. They got their own resources and lifecycle. The motivation here was multi-faceted: Using the OS as the isolation boundary meant we could corelate the cost, downtime, creation/destruction, and management of each VM around the app (and customers) it was designed to serve. OSs were sized for the few (or one) app they were designed to run.
 
@@ -41,6 +45,10 @@ They started realizing the benefits of this design, including:
 - Higher hardware utilization
 
 > This is it. Containers are the next once-in-a-decade shift in infrastructure and process that can make or break your success. --Bret Fisher 😎
+
+Docker made it easy for all of us to adopt these new ideas of what a "container" could be. It allows us to still isolate our apps, but without all the unnecessary VM sprawl. Our new design looks much like the original 90's pre-VM design, but with the benefit of app isolation:
+
+![Today: Container isolation](images/isolation-docker.excalidraw.png)
 
 ## The problem of environments
 

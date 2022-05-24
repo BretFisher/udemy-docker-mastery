@@ -2,9 +2,7 @@
 
 > Nav: [Back to Intro Lectures](../README.md)
 
-Welcome, or should I say whale-come, to the future of software management.
-
-![Whalecome!](https://giphy.com/embed/FaKV1cVKlVRxC)
+Welcome to the future of software management.
 
 Today, docker is lots of things. This lecture is focused on Docker's original three innovations that changed the software world.
 
@@ -18,7 +16,7 @@ Docker was not the inventor of containers, but it made them easier to use with t
 
 Docker calls this the "Build, Ship and Run" lifecycle.
 
-![Docker Build, Ship and Run](images/build-ship-run.png)
+![Docker Build, Ship and Run](images/build-ship-run.excalidraw.png)
 
 These are the basics that all other container technology is built on. Kubernetes, Swarm, Helm and [most the cloud native tooling](https://landscape.cncf.io/) assumes you're using these three innovations.
 
@@ -26,7 +24,7 @@ We’ll learn a lot more about these three innovations in this course, so for no
 
 ## The Docker Image: Universal app packaging
 
-![The Docker Image](images/image-basics.png)
+![The Docker Image](images/image-basics.excalidraw.png)
 
 1. It’s called a "Docker image", the standards name "OCI Image", or just "image" for short.
 2. Docker uses a list instructions, called a Dockerfile, which is similar to a shell script, and it layers those instructions on top of each other until it has everything you need to run the application, including all its system dependencies.
@@ -37,7 +35,7 @@ We’ll learn a lot more about these three innovations in this course, so for no
 
 ## The Registry: Easy app distribution
 
-![The Docker Registry](images/registry-basics.png)
+![The Docker Registry](images/registry-basics.excalidraw.png)
 
 1. Called a "Docker registry", or just "registry" for short.
 1. This innovation was the key to connecting our building of images on one machine to running our containers on another.
@@ -51,7 +49,7 @@ We’ll learn a lot more about these three innovations in this course, so for no
 
 ## The Docker Container: Easy app running
 
-![The Docker Container](images/container-basics.png)
+![The Docker Container](images/container-basics.excalidraw.png)
 
  1. Called a "Docker container", the standards name "OCI Container", or just "container" for short. It's **not** called a "docker", or "dockers". Docker is many things.
  2. Docker will launch your container image into a new running container and use the command you specified in the Dockerfile to start it.
