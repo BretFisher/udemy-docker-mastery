@@ -63,7 +63,7 @@ Server: Docker Engine - Community
 
 We'll get back two sets of versions, one for the "Client", which is the command-line binary we just ran, and one for the "Server", which is the Docker Engine background daemon that our Client talks to over the Docker API. In this case, the Docker Engine is running on the same machine as our Client, but it could also be running on a different machine, and we talk to it over Sockets, TCP, or SSH.
 
-![Docker Client and Server](images/docker-client-server.png)
+![Docker Client and Server](images/docker-client-server.excalidraw.png)
 
 ## Run an image from Docker Hub
 
@@ -151,6 +151,8 @@ daf459a2c121   httpd     "httpd-foreground"   About a minute ago   Up About a mi
 > Note: docker has many CLI aliases to keep it backwards compatible and friendly. You could also type `docker container ls` to get the same result.
 
 These two Apache containers share nothing in common except the image and the host IP they are "published" to. The two containers can have their own Apache running on port 80 at the same time, because each container gets a virtual ethernet interface, or `veth`. The `-p` tells the Linux host's `iptables` to route the traffic from `host-ip:8800` and `host-ip:8801` to the respective container's `container-ip:80`.
+
+![Two Apache containers](images/pwd-two-httpd.excalidraw.png)
 
 From here we can run many more containers, we can use `docker logs <id>` to see the output of each container, and we can use `docker exec <id>` to run additional commands inside the container.
 
