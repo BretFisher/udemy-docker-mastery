@@ -61,7 +61,5 @@ We’ll learn a lot more about these three innovations in this course, so for no
 
 ## Further reading
 
-- [Kubernetes vs. Docker (bretfisher.com)
-](https://www.bretfisher.com/kubernetes-vs-docker/)
-- [A Brief History of Containers: From the 1970s till now (aquasec.com)](https://blog.aquasec.com/a-brief-history-of-containers-from-1970s-chroot-to-docker-2016)
+- [Kubernetes vs. Docker (bretfisher.com)](https://www.bretfisher.com/kubernetes-vs-docker/)
 - [OCI Overview](https://opencontainers.org/about/overview/)

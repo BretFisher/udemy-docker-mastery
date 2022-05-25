@@ -112,3 +112,8 @@ Even with the added complexity of "Dockerizing" existing apps, re-tooling system
 ## Why Docker, why now?
 
 Hopefully my three points started to convince you that Docker is the right tool for the job, at the right time in the evolution of IT and creating software. If you're still not convinced, you can read more about Docker in the [Docker Documentation](https://docs.docker.com/engine/userguide/).
+
+## Further reading
+
+- [A Brief History of Containers: From the 1970s till now (aquasec.com)](https://blog.aquasec.com/a-brief-history-of-containers-from-1970s-chroot-to-docker-2016)
+- [Docker Engine Documentation](https://docs.docker.com/engine/userguide/)
