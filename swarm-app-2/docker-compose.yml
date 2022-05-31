@@ -7,7 +7,7 @@ version: '2'
 services:
 
   drupal:
-    # this Dockerfile needs at least drupal:8.8.2 to work with postgres:12
+    # this Dockerfile should be at least drupal:9.3.13 to work with postgres:14.3
     image: custom-drupal
     build: .
     ports:
@@ -19,7 +19,7 @@ services:
       - drupal-themes:/var/www/html/themes
  
   postgres:
-    image: postgres:12.1
+    image: postgres:14.3
     environment:
       - POSTGRES_PASSWORD=mypasswd
     volumes:
