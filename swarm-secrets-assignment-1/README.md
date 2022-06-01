@@ -1,6 +1,9 @@
-# Assignment: Create a Swarm Stack with Secrets
+# Assignment: Create a Stack with Secrets
 
 > Goal: Create and use a Swarm Secret in an existing Compose file.
+
+[Docker Mastery Lecture](https://www.udemy.com/course/docker-mastery/learn/lecture/6796822)
+[Docker Swarm Mastery Lecture](https://www.udemy.com/course/docker-swarm-mastery/learn/practice/28073)
 
 We are starting with a `docker-compose.yml` in the same directory as this README.md file. It was used previously for local Compose CLI, and we now want to make it work in Swarm with Secrets.
 

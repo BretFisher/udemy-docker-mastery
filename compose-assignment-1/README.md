@@ -2,6 +2,8 @@
 
 > Goal: Create a compose config for a local Drupal CMS website
 
+[Docker Mastery Lecture](https://www.udemy.com/course/docker-mastery/learn/lecture/6775804)
+
 - This empty directory is where you should create a docker-compose.yml
 - Use the `drupal:9.3.13` image along with the `postgres:14.3` image
 - 2020 UPDATE: No version needed in compose files! All 2.x and 3.x features supported without version key.
