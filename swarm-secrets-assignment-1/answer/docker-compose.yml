@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   drupal:
-    image: drupal:8.8.2
+    image: drupal:9.3.13
     ports:
       - "8080:80"
     volumes:
@@ -13,7 +13,7 @@ services:
       - drupal-themes:/var/www/html/themes
  
   postgres:
-    image: postgres:12.1
+    image: postgres:14.3
     environment:
       - POSTGRES_PASSWORD_FILE=/run/secrets/psql-pw
     secrets:
