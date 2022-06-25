@@ -4,17 +4,18 @@
 #       to match the latest standards from docker hub... but it's doing the same thing as the video
 #       describes
 
-FROM debian:buster-slim
-
+FROM debian:bullseye-slim
 # all images must have a FROM
 # usually from a minimal Linux distribution like debian or (even better) alpine
 # if you truly want to start with an empty container, use FROM scratch
 
-ENV NGINX_VERSION   1.18.0
-ENV NJS_VERSION     0.3.9
-ENV PKG_RELEASE     1~buster
+LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
 
 # optional environment variable that's used in later lines and set as envvar when container is running
+ENV NGINX_VERSION   1.23.0
+ENV NJS_VERSION     0.7.5
+ENV PKG_RELEASE     1~bullseye
+
 
 RUN set -x \
 # create nginx user/group first, to be consistent throughout docker variants
@@ -26,9 +27,7 @@ RUN set -x \
     NGINX_GPGKEY=573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62; \
     found=''; \
     for server in \
-        ha.pool.sks-keyservers.net \
         hkp://keyserver.ubuntu.com:80 \
-        hkp://p80.pool.sks-keyservers.net:80 \
         pgp.mit.edu \
     ; do \
         echo "Fetching GPG key $NGINX_GPGKEY from $server"; \
@@ -42,18 +41,18 @@ RUN set -x \
         nginx-module-xslt=${NGINX_VERSION}-${PKG_RELEASE} \
         nginx-module-geoip=${NGINX_VERSION}-${PKG_RELEASE} \
         nginx-module-image-filter=${NGINX_VERSION}-${PKG_RELEASE} \
-        nginx-module-njs=${NGINX_VERSION}.${NJS_VERSION}-${PKG_RELEASE} \
+        nginx-module-njs=${NGINX_VERSION}+${NJS_VERSION}-${PKG_RELEASE} \
     " \
     && case "$dpkgArch" in \
-        amd64|i386) \
+        amd64|arm64) \
 # arches officialy built by upstream
-            echo "deb https://nginx.org/packages/debian/ buster nginx" >> /etc/apt/sources.list.d/nginx.list \
+            echo "deb https://nginx.org/packages/mainline/debian/ bullseye nginx" >> /etc/apt/sources.list.d/nginx.list \
             && apt-get update \
             ;; \
         *) \
 # we're on an architecture upstream doesn't officially build for
 # let's build binaries from the published source packages
-            echo "deb-src https://nginx.org/packages/debian/ buster nginx" >> /etc/apt/sources.list.d/nginx.list \
+            echo "deb-src https://nginx.org/packages/mainline/debian/ bullseye nginx" >> /etc/apt/sources.list.d/nginx.list \
             \
 # new directory for storing sources and .deb files
             && tempDir="$(mktemp -d)" \
@@ -94,23 +93,31 @@ RUN set -x \
     && apt-get install --no-install-recommends --no-install-suggests -y \
                         $nginxPackages \
                         gettext-base \
-    && apt-get remove --purge --auto-remove -y ca-certificates && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/nginx.list \
+                        curl \
+    && apt-get remove --purge --auto-remove -y && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/nginx.list \
     \
 # if we have leftovers from building, let's purge them (including extra, unnecessary build deps)
     && if [ -n "$tempDir" ]; then \
         apt-get purge -y --auto-remove \
         && rm -rf "$tempDir" /etc/apt/sources.list.d/temp.list; \
-    fi
-
+    fi \
 # forward request and error logs to docker log collector
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log
+    && ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log \
+# create a docker-entrypoint.d directory
+    && mkdir /docker-entrypoint.d
+
+# COPY docker-entrypoint.sh /
+# COPY 10-listen-on-ipv6-by-default.sh /docker-entrypoint.d
+# COPY 20-envsubst-on-templates.sh /docker-entrypoint.d
+# COPY 30-tune-worker-processes.sh /docker-entrypoint.d
+# ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 80
 # expose these ports on the docker virtual network
 # you still need to use -p or -P to open/forward these ports on host
 
-STOPSIGNAL SIGTERM
+STOPSIGNAL SIGQUIT
 
 CMD ["nginx", "-g", "daemon off;"]
 # required: run this command when container is launched
