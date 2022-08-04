@@ -149,4 +149,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # vscode tmp files
-.dcccache
+.dccache
