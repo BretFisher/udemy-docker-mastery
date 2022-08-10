@@ -1,1 +1,27 @@
-# create your drupal and postgres config here, based off the last assignment
+# version isn't needed as of 2020 for docker compose CLI.
+# All 2.x and 3.x features supported
+# version: '2'
+
+services:
+  custom-drupal:
+    build: .
+    ports:
+      - '8080:80'
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles
+      - drupal-sites:/var/www/html/sites
+      - drupal-themes:/var/www/html/themes
+  postgres:
+    image: postgres:14.3
+    environment:
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - drupal-data:/var/lib/postgresql/data
+
+volumes:
+  drupal-data:
+  drupal-modules:
+  drupal-profiles:
+  drupal-sites:
+  drupal-themes:
