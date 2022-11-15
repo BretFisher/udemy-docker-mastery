@@ -12,8 +12,8 @@ FROM debian:bullseye-slim
 LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
 
 # optional environment variable that's used in later lines and set as envvar when container is running
-ENV NGINX_VERSION   1.23.0
-ENV NJS_VERSION     0.7.5
+ENV NGINX_VERSION   1.23.2
+ENV NJS_VERSION     0.7.7
 ENV PKG_RELEASE     1~bullseye
 
 
