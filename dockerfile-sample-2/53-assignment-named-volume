@@ -1,0 +1,24 @@
+# Check in Docker Hub the VOLUME path of postgres
+https://hub.docker.com/layers/library/postgres/9.6.1/images/sha256-4023a747a01a29f94939c41fc5c2441837d9ebc05030c2681dc47853d73978c5?context=explore
+VOLUME path: /var/lib/postgresql/data
+
+# Create postgres container 9.6.1 with named volume
+docker run -d -e POSTGRES_HOST_AUTH_METHOD=trust -v psql-data:/var/lib/postgresql/data --name postgres1 postgres:9.6.1
+## works for me m1 chip
+docker run -d -e POSTGRES_HOST_AUTH_METHOD=trust -v psql-data:/var/lib/postgresql/data --name postgres1 postgres:14.6
+
+
+# Check the logs of container, should be quite long
+docker container logs postgres1
+
+# docker volume ls to see if `psql-data` is created
+docker volume ls
+
+# Stop the container
+docker container stop postgres1
+
+# Create new postgres container with 9.6.2 version attach to same named volume as before
+docker run -d -e POSTGRES_HOST_AUTH_METHOD=trust -v psql-data:/var/lib/postgresql/data --name postgres2 postgres:9.6.2
+
+# Check the logs of container, should be quite short
+docker container logs postgres2
