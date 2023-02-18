@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpage</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <!--Level 1  -->
+
+    <header class="header container">
+        <nav class="header_nav">
+            <a href="/">
+                <img src="https://pwskills.com/images/PWSkills-main.png"  alt="pwskills"
+                class="header_nav-logo">
+            </a>
+        <!-- div is used to divide element  -->
+        <div class="header_nav-items">
+            <p class="header_nav-item"><a href="#" target="newtab">Home</a></p>
+            <p class="header_nav-item"><a href="Show#" target="newtab">Show</a></p>
+            <p class="header_nav-item"><a href="/Important" target="newtab">Important</a></p>
+        </div>
+       </nav>
+    </header>
+
+    <!-- level 2 -->
+
+    <main class="main container">
+
+        <!-- section 1 -->
+        <section class="hero">
+            <div class="main_text">
+                <h3 class="main_text-heading">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque, magnam officiis. Possimus sunt repudiandae laboriosam molestiae voluptas veritatis enim nostrum.  
+                </h3>
+            </div>
+            <div class="main_img">
+                <img src="./assests/librari.jpeg" alt="library" >
+            </div>
+        </section>
+
+        <!-- section 2 -->
+        <section class="Showcase">
+
+            <div class="Showcase_Card">
+                <img src="./assests/book.png" alt="curcess" height="110px">
+                <h3>Different Curcess</h3>
+            </div>
+
+            <div class="Showcase_Card">
+                <img src="./assests/student.png" height="110px" alt="Student">
+                <h3>Student Enrolled</h3>
+            </div>
+
+            <div class="Showcase_Card">
+                <img src="https://www.freepnglogos.com/uploads/logo-home-png/chimney-home-icon-transparent-1.png" height="110px" alt="Transiction board">
+                <h3 class="Heading">Successful Transaction</h3>
+            </div>
+        </section>
+
+        <!-- section 3 -->
+        <section class="ThirdSection">
+            <div class="ThirdSection_img">
+                <img src="https://rrcnewstudentguide.files.wordpress.com/2021/04/amand6.jpg"  alt=" library ">
+            </div>
+
+            <div class="ThirdSection_Text">
+                <h3 class="ThirdSection_Text-heading">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo cumque eaque nobis tempore necessitatibus. Tempore ratione omnis perferendis doloribus unde dolorum necessitatibus cupiditate iusto blanditiis, voluptate minima suscipit autem velit quas quia assumenda soluta rem nam quo aliquam. Inventore est debitis sed deserunt commodi suscipit eveniet, aut a. Illo, at?
+                </h3>
+            </div>
+        </section>
+
+        <section class="FourthSection">
+                <div class="FourthSection_Text">
+                    <h3 class="FourthSection_Text-heading">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque consequuntur incidunt eaque doloremque beatae voluptas architecto molestiae totam. Cum culpa exercitationem saepe illo praesentium tempora quos animi molestias. Alias, deserunt excepturi. Sunt culpa ea aspernatur corrupti quidem magni. Aperiam veniam sapiente autem deleniti omnis provident vitae voluptatibus enim eaque cupiditate?
+                    </h3>
+                </div>
+
+                <div class="FourthSection_img">
+                    <img src="https://thumbs.dreamstime.com/b/round-bookshelf-national-public-library-stockholm-sweden-april-view-207686876.jpg" alt="team Work">
+                </div>
+        </section>
+
+        <h1 class="heading">About Me:</h1>
+        <p class="Paragraph">
+            Hi, I am Nitesh Kumar. I belongs to GopalGanj Bihar. currently I am pursuing BTech in Computer Science from Technocrats Institute Of Technology & Science Bhopal M.P (TIT&Science code-0192),and I am in 2nd Year and I completed C/C++(core) and Now i am working on JAVA With Data Structure & Algorithm(DSA).
+            I am a frontent Developer now. ..for more introduction click on below photo!
+        </p>
+
+        <section class="SixthSection">
+         <div class="SixthSection_text">
+            <img src="https://th.bing.com/th/id/R.1064d0827a2e94432c46c6ef54f82392?rik=j4zZB%2bAJrhIE7w&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_202440.png&ehk=D71eHdbyVkCuhG9X9BHju13hfmq0hpSUEU%2bXJrRJrhw%3d&risl=&pid=ImgRaw&r=0" alt="massage">
+         </div>
+
+         <div class="SixthSection_text-img">
+            <a href="https://www.linkedin.com/in/nitesh-kumar-42ba5924b/">
+                <img src="https://cdn.freebiesupply.com/logos/large/2x/linkedin-icon-logo-png-transparent.png" alt="linkedin">
+            </a>
+         </div>
+
+         <div class="SixthSection_text-img">
+            <a href="https://leetcode.com/niteshkumar61725/">
+                <img src="https://avatars0.githubusercontent.com/u/48126122?s=280&v=4" alt="leetcode">
+            </a>
+         </div>
+
+         <div class="SixthSection_text-img">
+            <a href="https://www.codechef.com/users/niteshkumar617">
+                <img src="https://www.codechef.com/misc/fb-image-icon.png" alt="codechef">
+            </a>
+         </div>
+
+         <div class="SixthSection_text-img">
+            <a href="https://www.hackerrank.com/niteshkumar61725">
+                <img src="https://cdn-1.webcatalog.io/catalog/hackerrank/hackerrank-icon.png" alt="hackerRank">
+            </a>
+         </div>
+
+         <div class="SixthSection_text-img">
+            <a href="https://auth.geeksforgeeks.org/user/niteshkumar61725">
+                <img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20201127103841/574.png" alt="GFG">
+            </a>
+         </div>
+
+        <div class="SixthSection_text-img">
+            <a href="https://github.com/NiteshRoy16">
+                <img src="https://p1.hiclipart.com/preview/347/293/202/cat-icon-github-github-pages-user-computer-share-icon-source-code-black-png-clipart.jpg" alt="GitHub">
+            </a>
+        </div>
+        </section>
+        
+        <section class="lastSection">
+        <div class="main_img-thank">
+            <img src="https://th.bing.com/th/id/R.82e0f28e1cd16b02d468ccd5c25e55c1?rik=TraVKEgKLejsiA&riu=http%3a%2f%2fpngimg.com%2fuploads%2fthank_you%2fthank_you_PNG135.png&ehk=WjlCmDBR0%2fhJm7gST%2bQUhKVt8fgHHmQDjHBaPxgYIKE%3d&risl=&pid=ImgRaw&r=0" class="thankyou_img" alt="thank you!">
+        </div>
+        <div class="main_img-thank_text">
+            <h1 class="Nitesh">
+                Nitesh kumar
+            </h1>
+        </div>
+    </section>
+    </main>
+    <footer class="footer">
+        <p class="footer_text"> Copyright &copy; 2023 Pw Skills</p>
+    </footer>
+</body>
+</html>
