@@ -17,7 +17,7 @@ services:
       - ./wordpress-data:/var/www/html
 
   mysql:
-    # we sue mariadb here for arm support
+    # we use mariadb here for arm support
     # mariadb is a fork of MySQL that's often faster and better multi-platform
     image: mariadb
     environment:
