@@ -11,7 +11,7 @@ It's always a good idea to do that so a new major version doesn't surprise you.
 ## Dockerfile
 
 - First you need to build a custom Dockerfile in this directory,
-`FROM drupal:9.3.13` NOTE: if it fails to build, try the latest 9 branch version with `FROM drupal:9`
+`FROM drupal:9`
 - Then RUN apt package manager command to install git: `apt-get update && apt-get install -y git`
 - Remember to cleanup after your apt install with `rm -rf /var/lib/apt/lists/*` and use `\` and `&&` properly.
 You can find examples of them in drupal official image. More on this below under Compose file.
@@ -31,11 +31,11 @@ to signify the next line is included in the command, and at start of next line y
 
 - We're going to build a custom image in this compose file for drupal service.
 Use Compose file from previous assignment for Drupal to start with, and we'll add to it, as well as change image name.
-- Rename image to `custom-drupal` as we want to make a new image based on the official `drupal:9.3.13`.
+- Rename image to `custom-drupal` as we want to make a new image based on the official `drupal:9`.
 - We want to build the default Dockerfile in this directory by adding `build: .` to the `drupal` service.
 When we add a build + image value to a compose service,
 it knows to use the image name to write to in our image cache, rather then pull from Docker Hub.
-- For the `postgres:14.3` service, you need the same password as in previous assignment,
+- For the `postgres:14` service, you need the same password as in previous assignment,
 but also add a volume for `drupal-data:/var/lib/postgresql/data` so the database will
 persist across Compose restarts.
 
