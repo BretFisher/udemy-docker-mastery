@@ -4,7 +4,7 @@
 
 services:
   drupal:
-    image: drupal:9.3.13
+    image: drupal:9
     ports:
       - "8080:80"
     volumes:
@@ -13,7 +13,7 @@ services:
       - drupal-sites:/var/www/html/sites      
       - drupal-themes:/var/www/html/themes
   postgres:
-    image: postgres:14.3
+    image: postgres:14
     environment:
       - POSTGRES_PASSWORD=mypasswd
 

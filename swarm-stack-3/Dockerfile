@@ -1,4 +1,4 @@
-FROM drupal:9.3.13
+FROM drupal:9
 
 
 RUN apt-get update \
