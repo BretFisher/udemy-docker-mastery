@@ -1,0 +1,133 @@
+# version isn't needed as of 2020 for docker compose CLI. 
+# All 2.x and 3.x features supported
+# Docker Swarm still needs a 3.x version
+# version: '3.9'
+
+services:  # containers. same as docker run
+  <chosendesignation/servicename>: # a friendly name. this is also DNS name inside network
+    image: wordpress# Optional if you use build:
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: exmaple
+      WORDPRESS_DB_PASSWORD: examplePW
+    volumes:
+      - ./wordpress-data:/var/www/html
+
+  mysql:
+    # we use mariadb here for arm support
+    # mariadb is a fork of MySQL that's often faster and better multi-platform
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: examplerootPW
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: example
+      MYSQL_PASSWORD: examplePW
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+
+
+services:
+  ghost:
+    image: ghost
+    ports:
+      - "80:2368"
+    environment:
+      - URL=http://localhost
+      - NODE_ENV=production
+      - MYSQL_HOST=mysql-primary
+      - MYSQL_PASSWORD=mypass
+      - MYSQL_DATABASE=ghost
+    volumes:
+      - ./config.js:/var/lib/ghost/config.js
+    depends_on:
+      - mysql-primary
+      - mysql-secondary
+  proxysql:
+    # image only works on x86_64 (amd64)
+    image: percona/proxysql
+    environment: 
+      - CLUSTER_NAME=mycluster
+      - CLUSTER_JOIN=mysql-primary,mysql-secondary
+      - MYSQL_ROOT_PASSWORD=mypass
+   
+      - MYSQL_PROXY_USER=proxyuser
+      - MYSQL_PROXY_PASSWORD=s3cret
+  mysql-primary:
+    # image only works on x86_64 (amd64)
+    image: percona/percona-xtradb-cluster:5.7
+    environment: 
+      - CLUSTER_NAME=mycluster
+      - MYSQL_ROOT_PASSWORD=mypass
+      - MYSQL_DATABASE=ghost
+      - MYSQL_PROXY_USER=proxyuser
+      - MYSQL_PROXY_PASSWORD=s3cret
+  mysql-secondary:
+    # image only works on x86_64 (amd64)
+    image: percona/percona-xtradb-cluster:5.7
+    environment: 
+      - CLUSTER_NAME=mycluster
+      - MYSQL_ROOT_PASSWORD=mypass
+   
+      - CLUSTER_JOIN=mysql-primary
+      - MYSQL_PROXY_USER=proxyuser
+      - MYSQL_PROXY_PASSWORD=s3cret
+    depends_on:
+      - mysql-primary
+
+
+services:
+  proxy:
+    image: nginx:1.23 # this will use the latest version of 1.23
+    ports:
+      # NOTE: if port 80 is already in use on your host, this won't work
+      # in that case, change to any high port, like '8000:80'
+      # and then use http://localhost:8000 to access the proxy
+      - '80:80' # expose 80 on host and sent to 80 in container
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+  web:
+    image: httpd:2  # this will use the latest apache v2
+
+    # based off compose-sample-2, only we build nginx.conf into image
+    # uses sample HTML static site from https://startbootstrap.com/themes/agency/
+    
+services:
+  proxy:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    ports:
+      - '80:80'
+  web:
+    image: httpd
+    volumes:
+      - ./html:/usr/local/apache2/htdocs/
+
+
+    command: # Optional, replace the default CMD specified by the image
+    environment: # Optional, same as -e in docker run
+      WORDPRESS_DB_PASSWORD: exmaple
+      key: value
+      volumes:
+        - ./wordpress-data:/var/www/html
+    mysql:
+      image: mariadb
+      environmentL
+        MYSQL_ROOT_PASSWORD: exmaple
+      volumes:
+        - ./mysql-data:/var/lib/mysql
+    volumes: # Optional, same as -v in docker run
+      - .:/site #instead of $(pwd), . means this is the current working directory I'm in, just use this directory that I'm running the compose file from
+    ports:
+      - '80:4000'
+  servicename2:
+
+volumes: # Optional, same as docker volume create
+
+networks: # Optional, same as docker network create
