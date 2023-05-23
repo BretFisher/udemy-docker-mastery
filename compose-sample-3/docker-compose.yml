@@ -1,4 +1,6 @@
-version: '2'
+# version isn't needed as of 2020 for docker compose CLI. 
+# All 2.x and 3.x features supported
+# version: '2'
 
 # based off compose-sample-2, only we build nginx.conf into image
 # uses sample HTML static site from https://startbootstrap.com/themes/agency/

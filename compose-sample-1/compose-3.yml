@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 # NOTE: This example only works on x86_64 (amd64)
 # Percona doesn't yet publish arm64 (Apple Silicon M1) or arm/v7 (Raspberry Pi 32-bit) images
 

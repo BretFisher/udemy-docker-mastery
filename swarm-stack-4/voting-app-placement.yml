@@ -4,7 +4,7 @@
 # vote must not run on Swarm manager nodes
 # worker needs to scale with Swarm worker nodes, 1 task each
 
-version: '3'
+version: '3.9'
 services:
     redis:
         image: redis:alpine

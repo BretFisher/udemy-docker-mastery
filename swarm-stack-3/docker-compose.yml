@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.9'
 
 services:
 
@@ -6,4 +6,4 @@ services:
     image: custom-drupal:latest
 
   postgres:
-    image: postgres:12.1
+    image: postgres:14

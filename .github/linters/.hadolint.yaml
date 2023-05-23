@@ -1,3 +1,5 @@
+failure-threshold: error
+
 ignored:
   - DL3003 #ignore that we use cd sometimes
   - DL3006 #image pin versions

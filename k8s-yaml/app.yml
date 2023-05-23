@@ -5,7 +5,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 80
+    - port: 80
   selector:
     app: app-nginx
 ---
@@ -24,7 +24,7 @@ spec:
         app: app-nginx
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.17.3
-        ports:
-        - containerPort: 80
+        - name: nginx
+          image: nginx:1.17.3
+          ports:
+            - containerPort: 80

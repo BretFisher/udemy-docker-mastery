@@ -1,9 +1,11 @@
 # MD013/line-length - Line length
 MD013:
-  # Number of characters
-  line_length: 500
+  # Number of characters, default is 80
+  # I'm OK with long lines. All editors now have wordwrap
+  line_length: 9999
   # Number of characters for headings
   heading_line_length: 100
+  # check code blocks?
   code_blocks: false
 
 # MD033/html - Inline HTML

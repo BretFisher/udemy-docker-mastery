@@ -1,11 +1,16 @@
-version: '3'
+# version isn't needed as of 2020 for docker compose CLI. 
+# All 2.x and 3.x features supported
+#version: '3.9'
 
 services:
   proxy:
-    image: nginx:1.13 # this will use the latest version of 1.13.x
+    image: nginx:1.23 # this will use the latest version of 1.23
     ports:
+      # NOTE: if port 80 is already in use on your host, this won't work
+      # in that case, change to any high port, like '8000:80'
+      # and then use http://localhost:8000 to access the proxy
       - '80:80' # expose 80 on host and sent to 80 in container
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
   web:
-    image: httpd  # this will use httpd:latest
+    image: httpd:2  # this will use the latest apache v2

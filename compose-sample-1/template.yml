@@ -1,4 +1,7 @@
-version: '3.1'  # if no version is specified then v1 is assumed. Recommend v2 minimum
+# version isn't needed as of 2020 for docker compose CLI. 
+# All 2.x and 3.x features supported
+# Docker Swarm still needs a 3.x version
+# version: '3.9'
 
 services:  # containers. same as docker run
   servicename: # a friendly name. this is also DNS name inside network
@@ -11,6 +14,3 @@ services:  # containers. same as docker run
 volumes: # Optional, same as docker volume create
 
 networks: # Optional, same as docker network create
-
-
-
