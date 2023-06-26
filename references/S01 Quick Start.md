@@ -16,8 +16,6 @@
 - [Docker Official Images](https://docs.docker.com/docker-hub/official_images/)
 - [Apache Official Image (httpd)](https://hub.docker.com/_/httpd)
 
-### Shell Commands
-
 ```shell
 docker version
 docker run -d -p 8800:80 httpd

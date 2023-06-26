@@ -2,6 +2,10 @@
 
 > Shell commands and reference links, per lecture
 
+## Kubectl run, create, and apply
+
+- [Kubectl Reference](https://kubernetes.io/docs/reference/kubectl/)
+
 ## Our First Pod With Kubectl run
 
 - [Kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
@@ -17,6 +21,9 @@ kubectl get all
 
 ## Your First Deployment with kubectl create
 
+- [kubectl create deployment](https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)
+- [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+
 ```shell
 kubectl create deployment my-nginx --image nginx
 kubectl get pods
@@ -26,6 +33,8 @@ kubectl delete deployment my-nginx
 ```
 
 ## Scaling ReplicaSets
+
+- [ReplicaSets](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
 
 ```shell
 kubectl create deployment my-apache --image httpd
