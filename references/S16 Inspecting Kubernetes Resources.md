@@ -40,6 +40,7 @@ kubectl delete pod/my-apache-xxxx-yyyy
 - [Logging Architecture](https://kubernetes.io/docs/concepts/cluster-administration/logging/)
 - [Loki - Like Prometheus, but for logs](https://github.com/grafana/loki)
 - [ELK Stack](https://www.elastic.co/what-is/elk-stack)
+- [Stern multi-pod log tailing](https://github.com/stern/stern)
 
 ```shell
 kubectl logs deploy/my-apache
