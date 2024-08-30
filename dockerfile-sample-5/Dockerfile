@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:latest
 
 COPY ./docker-entrypoint.sh /
 
