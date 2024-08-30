@@ -2,7 +2,7 @@
 # https://hub.docker.com/_/nginx/
 # NOTE: This file is slightly different than the video, because nginx versions have been updated 
 #       to match the latest standards from docker hub... but it's doing the same thing as the video
-#       describes
+#       describe
 
 FROM debian:bookworm-slim
 # all images must have a FROM
