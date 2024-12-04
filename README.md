@@ -1,5 +1,6 @@
 # Udemy Course Docker Mastery: with Kubernetes+Swarm from a Docker Captain
 
+[![](https://dcbadge.limes.pink/api/server/devops)](https://discord.gg/devops)
 
 > Build, test, and deploy containers with the best mega-course on Docker, Kubernetes, Compose, Swarm and Registry using a cloud native DevOps mindset
 
