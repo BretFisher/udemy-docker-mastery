@@ -1,60 +1,46 @@
-# Understanding ENTRYPOINT and CMD
+# Dockerfile ENTRYPOINT
 
 Table of Contents
 
-- [Understanding ENTRYPOINT and CMD](#understanding-entrypoint-and-cmd)
-  - [Lecture 1: What's an ENTRYPOINT?](#lecture-1-whats-an-entrypoint)
-    - [Why would you want this?](#why-would-you-want-this)
-    - [Exercise](#exercise)
-    - [Summary](#summary)
-  - [Lecture 2: USING ENTRYPOINT and CMD in the CLI](#lecture-2-using-entrypoint-and-cmd-in-the-cli)
-    - [Exercise](#exercise-1)
-    - [4 Rules](#4-rules)
-    - [Gotchas](#gotchas)
-    - [Exercise 2](#exercise-2)
-    - [Summary](#summary-1)
-  - [Lecture 3: Using ENTRYPOINT and CMD in Docker Compose](#lecture-3-using-entrypoint-and-cmd-in-docker-compose)
-    - [Exercise](#exercise-2)
-    - [Summary](#summary-2)
-  - [Quiz](#quiz)
-  - [Assignment: Build a curl image](#assignment-build-a-curl-image)
+- [Lecture 1: What's an ENTRYPOINT?](#lecture-1-whats-an-entrypoint)
+  - [Why would you want this?](#why-would-you-want-this)
+  - [Exercise](#exercise)
+  - [Summary](#summary)
+- [Lecture 2: USING ENTRYPOINT and CMD in the CLI](#lecture-2-using-entrypoint-and-cmd-in-the-cli)
+  - [Exercise](#exercise-1)
+  - [4 Rules](#4-rules)
+  - [Gotchas](#gotchas)
+  - [Exercise 2](#exercise-2)
+  - [Summary](#summary-1)
+- [Lecture 3: Using ENTRYPOINT and CMD in Docker Compose](#lecture-3-using-entrypoint-and-cmd-in-docker-compose)
+  - [Exercise](#exercise-2)
+  - [Summary](#summary-2)
+- [Quiz](#quiz)
+- [Assignment: Build a curl image](#assignment-build-a-curl-image)
 
 ## Lecture 1: What's an ENTRYPOINT?
 
-You remember `CMD`. That's the thing the container runs on start. There's also, `ENTRYPOINT`, which can also run things on start, but how are they different?
+You previously learned the Dockerfile `CMD` instruction. That's the command that the container runs on start, by default. There's also the `ENTRYPOINT` instruction, which can also run things on start, but why do we have both of them and how are they different?
 
-An `ENTRYPOINT` allows you to configure a container that will run as an executable. You can think of it as a building block where you can stack additional commands too.
+Like `CMD`, the `ENTRYPOINT` instruction only runs on container start, not on image build. You can only have one of each, and you need at least one or the other so a container knows how to start. If you have two `CMD` instructions, the last one wins. Same with the `ENTRYPOINT` instruction.
 
-Everytime you start a container, docker takes `ENTRYPOINT` and `CMD` and just combines them into one long command with a space between them (e.g. `ENTRYPOINT` + [Space] + `CMD`).
+Every time you start a container, docker takes `ENTRYPOINT` and `CMD` and combines them into one long command with a space between them (e.g. `ENTRYPOINT` + [Space] + `CMD`). The benefits of this may not be immediately obvious, but it's a powerful feature that allows you to create custom images for command-line tools or for running pre-launch scripts as a container starts.
 
-For example, the offical mysql image makes use of an `ENTRYPOINT`:
+For example, the official MySQL image makes use of an `ENTRYPOINT` to run a script before starting the MySQL daemon, which it does by copying the script into the image, making the `ENTRYPOINT`, and then having the `CMD` run the usual `mysqld` daemon. Here's a snippet from the Dockerfile:
 
 ```dockerfile
-FROM debian:buster-slim
-
-# ommitted ...
-
-VOLUME /var/lib/mysql
-
-# Config files
-COPY config/ /etc/mysql/
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
-
-EXPOSE 3306 33060
 CMD ["mysqld"]
 ```
 
-<small>[full example](https://github.com/docker-library/mysql/blob/aa600026fe54b1fa6b2a7ac80ffbb466618fcabf/8.0/Dockerfile.debian)</small>
-
-If you were to build and run a container of this image the resulting command would be:
+The resulting command that Docker would execute on container start would then be:
 
 ```shell
-./docker-entrypoint.sh mysqld
+docker-entrypoint.sh mysqld
 ```
 
-i.e., `ENTRYPOINT` + [Space] + `CMD`
+i.e., `ENTRYPOINT` + [space] + `CMD`
 
 ### Why would you want this?
 
