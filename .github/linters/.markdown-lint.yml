@@ -7,3 +7,11 @@ MD013:
   heading_line_length: 100
   # check code blocks?
   code_blocks: false
+
+# MD033/html - Inline HTML
+MD033:
+  allowed_elements: ["details", "summary", "br", "small"]
+
+# MD024/no-duplicate-heading/no-duplicate-header - Multiple headings with the same content
+MD024:
+  allow_different_nesting: true

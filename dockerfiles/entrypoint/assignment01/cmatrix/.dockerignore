@@ -1,0 +1,6 @@
+# this file should list everything you don't want coppied into the docker image
+# format is the same as .gitignore (in fact, I often start one by just copying .gitignore)
+
+.git
+answer
+
