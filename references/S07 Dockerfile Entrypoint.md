@@ -6,6 +6,18 @@
 
 - [Docs: Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
 
+## Lecture 2: Buildtime vs. Runtime
+
+### Key Takeaways
+
+- Buildtime statements affect the files in the image or how the image is built.
+- Runtime statements are typically stored as metadata and affect the container.
+- Some statements affect how the image is built and also change container start behavior
+- Overwrite statements replace any previous use.
+- Additive statements add to any previous use.
+- Know your base (FROM) images. Many statement types affect downstream images.
+- Understanding these effects helps troubleshoot Dockerfile and container issues.
+
 ## Lecture 3: What's an ENTRYPOINT?
 
 ### Resources
@@ -16,6 +28,14 @@
 
 - [dockerfiles/entrypoint/entrypoint-1](https://github.com/BretFisher/udemy-docker-mastery/tree/main/dockerfiles/entrypoint/entrypoint-1)
 
+### Key Takeaways
+
+- ENTRYPOINT executes a command on container start.
+- ENTRYPOINT is a **Runtime** statement, stored as metadata with an image.
+- Only the last ENTRYPOINT in a Dockerfile is used, making it an **Overwrite** type.
+- A container needs at least a CMD or an ENTRYPOINT to know how to start.
+- ENTRYPOINT requires more typing to overwrite compared to CMD, so it's rarely used by itself as a replacement for CMD.
+- You can overwrite ENTRYPOINT with `docker run --entrypoint "something" <image>`.
 
 ### Commands
 
@@ -55,6 +75,14 @@ docker run --entrypoint date entryhostname
 - [dockerfiles/entrypoint/entrypoint-cmd-2](https://github.com/BretFisher/udemy-docker-mastery/tree/main/dockerfiles/entrypoint/entrypoint-cmd-2)
 - [httping-docker](https://github.com/bretfisher/httping-docker)
 
+### Key Takeaways
+
+- If both ENTRYPOINT and CMD are set, they combine into a single command on container start.
+- For CLI tools, use ENTRYPOINT to set the base executable, while CMD should provide default arguments.
+- CMD can be easily overridden at docker run without replacing the ENTRYPOINT.
+- For pre-launch scripts, ENTRYPOINT should set the script, and CMD should set the final process.
+- ENTRYPOINT shell scripts should use exec “$@” to pass execution (PID 1) to the CMD.
+
 ### Commands
 
 ```shell
@@ -67,12 +95,10 @@ docker top myshell
 ### Resources
 
 - [(Docs) Shell and Exec Form](https://docs.docker.com/reference/dockerfile/#shell-and-exec-form)
-- [(Docs) How CMD and ENTRYPOINT](interact https://docs.docker.com/reference/dockerfile/#understand-how-cmd-and-entrypoint-interact)
+- [(Docs) How CMD and ENTRYPOINT](https://docs.docker.com/reference/dockerfile/#understand-how-cmd-and-entrypoint-interact)
 - [(Docs) The SHELL statement](https://docs.docker.com/reference/dockerfile/#shell)
 - [(Docs) ENTRYPOINT Examples](https://docs.docker.com/reference/dockerfile/#entrypoint)
 - [Crazy ENTRYPOINT, CMD, and SHELL examples](https://dev.to/rimelek/constructing-commands-to-run-in-docker-containers-2g2i)
-
-### Files/Repos used
 
 ### Key Takeways
 
@@ -90,6 +116,19 @@ docker top myshell
     - CMD: Use Exec by default, but sometimes Shell Form is needed for shell features.
     - ENTRYPOINT + CMD: Always use Exec to avoid [weird edge cases](https://docs.docker.com/reference/dockerfile/#understand-how-cmd-and-entrypoint-interact).
 
-### Commands
+## Assignment 01: Creating CLI tools with ENTRYPOINT
 
+### Resources
+
+### Files/Repos used
+
+- [dockerfiles/entrypoint/assignment01](https://github.com/BretFisher/udemy-docker-mastery/tree/main/dockerfiles/entrypoint/assignment01)
+
+## Assignment 02: Adding startup scripts with ENTRYPOINT
+
+### Resources
+
+### Files/Repos used
+
+- [dockerfiles/entrypoint/assignment02](https://github.com/BretFisher/udemy-docker-mastery/tree/main/dockerfiles/entrypoint/assignment02)
 
