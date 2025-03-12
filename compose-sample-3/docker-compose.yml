@@ -10,6 +10,10 @@ services:
     build:
       context: .
       dockerfile: nginx.Dockerfile
+    # note we don't require an image name here, because we're building
+    # a new image and compose automatically tags it with the service name
+    # but if you want to hardcode the name to something differnt, you can set it
+    image: nginx-custom
     ports:
       - '80:80'
   web:
