@@ -1,15 +1,8 @@
-# create your drupal and postgres config here, based off the last assignment
+version: "3.9"
+
 services:
   drupal:
-    image: drupal:9
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 2
-      restart_policy:
-        condition: on-failure
-        max_attempts: 3
-        delay: 5s
+    image: custom_drupal
     ports:
       - 8090:80
     volumes:
@@ -24,22 +17,14 @@ services:
   
   postgres:
     image: postgres:14
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 2
-    secrets:
-      - psql_pass
     environment:
-      POSTGRES_PASSWORD_FILE: /run/secrets/psql_pass
+      - POSTGRES_PASSWORD=test1234
+      - POSTGRES_DB=drupal
+      - POSTGRES_USER=user
     volumes:
       - psql-data:/var/lib/postgres/data
     networks:
       - drupal_net
-
-secrets:
-  psql_pass:
-    external: true
 
 networks:
   drupal_net:
@@ -49,3 +34,4 @@ volumes:
   drupal_profiles:
   drupal_themes:
   drupal_sites:
+
