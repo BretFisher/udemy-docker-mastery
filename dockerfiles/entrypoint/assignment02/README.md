@@ -11,7 +11,7 @@ This assignment has you building a Dockerfile from scratch to perform startup ta
 - Python apps often keep their dependencies in a requirements.txt file, so let's copy that in first, so we can install dependencies before we copy all the other files in.
 - Install the dependencies with a run command for `pip install --no-cache-dir -r requirements.txt`
 - Now let's copy all files in after requirements are installed.
-- This app requires persistant data, so lets create a volume statment for `/app/data`.
+- This app requires persistent data, so lets create a volume statement for `/app/data`.
 - Set the entrypoint to run the startup script `./docker-entrypoint.sh`.
 - Set the cmd to start the uvicorn web server with `uvicorn main:app --host 0.0.0.0 --port 8000`.
 
