@@ -19,5 +19,4 @@ We'll use the Ubuntu image with the apt-get package manager.
 
 - Tip: Ubuntu Linux uses the `apt` package manager. It requires a three step process (commands) with 1. update the db cache, 2. install packages, 3. cleanup the cache files. You can chain these three commands together with &&, so a typical install would look like `apt-get update && apt-get install -y <list-of-packages> && rm -rf /var/lib/apt/lists/*` and you can add line breaks for readability with a backslash `\` at the end of the Dockerfile line.
 - ApacheBench expects a URL as the last argument, so you'll need to pass that in when you run the container, and it always needs http:// or https:// in the URL, and a trailing slash after the domain name.
-- Tip: As most Linux CLI tools, ab has a --help option, so I welcome you to explore the options and customize the CMD instruction to your liking. Remember you could always build this image, then overwride the ENTRYPOINT at runtime and then play around with ab by running `docker run -it --entrypoint sh <image-name>`
-
+- Tip: As most Linux CLI tools, ab has a --help option, so I welcome you to explore the options and customize the CMD instruction to your liking. Remember you could always build this image, then overwrite the ENTRYPOINT at runtime and then play around with ab by running `docker run -it --entrypoint sh <image-name>`
