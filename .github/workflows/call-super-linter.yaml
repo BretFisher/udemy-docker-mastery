@@ -22,7 +22,8 @@ jobs:
     ### https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
     ### you can also call workflows from inside the same repo via file path
 
-    uses: bretfisher/super-linter-workflow/.github/workflows/reusable-super-linter.yaml@main
+    # NOTE: zizmor scanner rule ignore added because we control sha pins via reusable workflow, not calling workflow
+    uses: bretfisher/super-linter-workflow/.github/workflows/reusable-super-linter.yaml@main # zizmor: ignore[unpinned-uses]
     
     ### Optional settings examples
     
