@@ -153,3 +153,4 @@ $RECYCLE.BIN/
 
 # reference pdf's
 references/*.pdf
+.claude/settings.local.json
