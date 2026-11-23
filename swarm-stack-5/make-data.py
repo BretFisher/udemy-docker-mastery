@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # this creates urlencode-friendly files without EOL
-import urllib
+import urllib.parse
 
 outfile = open("postb", "w")
 params = {"vote": "b"}
